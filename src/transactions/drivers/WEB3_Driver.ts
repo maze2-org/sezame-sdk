@@ -59,6 +59,7 @@ export class WEB3_Driver extends GenericTransactionDriver {
 
   getEndpoint() {
     const endpoint = this.config.endpoint;
+
     if (endpoint) {
       return endpoint;
     }

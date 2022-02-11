@@ -4,6 +4,7 @@ import { BitcoinWallet } from './wallets/types/BitcoinWallet';
 import { EthereumWallet } from './wallets/types/EthereumWallet';
 import { BscWallet } from './wallets/types/BscWallet';
 import { PolygonWallet } from './wallets/types/PolygonWallet';
+import { AvnWallet } from './wallets/types/AvnWallet';
 
 /**
  * Implements the Factory pattern to help generate easily wallets
@@ -37,6 +38,9 @@ export class WalletFactory {
         break;
       case Chains.POLYGON:
         wallet = new PolygonWallet(config);
+        break;
+      case Chains.AVN:
+        wallet = new AvnWallet(config);
         break;
       default:
         throw new Error('Unsupported wallet blockchain');

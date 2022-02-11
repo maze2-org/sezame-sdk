@@ -9,6 +9,7 @@ import * as Transactions from './transactions';
 import * as CurrencyFunctionsfrom from './currencyFunctions';
 
 require('dotenv').config();
+
 export { Currency } from './currencies';
 export { Chains } from './chains';
 export { WalletFactory } from './walletFactory';

@@ -121,15 +121,11 @@ export class GenericWallet implements IWallet {
         if (typeof driver.getTxSendProposals !== 'function') {
           continue;
         }
-        console.log({ driver });
         let fees = await driver.getTxSendProposals(destination, valueToSend);
-        console.log({ fees });
         if (fees) {
           return fees;
         }
       } catch (e) {
-        console.log(e);
-        process.exit();
         if (process.env.NODE_ENV !== 'production') {
           console.log(e);
         }
@@ -141,6 +137,7 @@ export class GenericWallet implements IWallet {
 
   postTxSend = async (transactionProposal: GenericTxProposal): Promise<any> => {
     // Loop through the drivers to get the fees
+
     let drivers =
       CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]?.transaction ?? [];
     for (let i = 0; i < drivers.length; i++) {
@@ -150,6 +147,7 @@ export class GenericWallet implements IWallet {
         var driver = new this.TRANSACTION_DRIVER_NAMESPACE[
           driverDescription.driver
         ](this.config, driverDescription.config);
+
         let tx = await driver.send(transactionProposal);
         return tx;
       } catch (e) {

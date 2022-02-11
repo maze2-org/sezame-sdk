@@ -1,61 +1,28 @@
 import { IFeeMap, FEE_TYPES } from '../IFee';
 import { GenericDriver } from '../GenericDriver';
-import { EthereumFee } from '../types/EthereumFee';
 import { TransactionConfig } from 'web3-core';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import { TRANSFER_METHOD_ABI } from '../../constants';
+import { AventusFee } from '../types/AventusFee';
 
-export class WEB3_Driver extends GenericDriver {
-  nativeAssetSymbol: string = 'ETH';
-
-  getGasFeePrices = async () => {
-    let prices: any = {};
-    prices[FEE_TYPES.REGULAR] = 0;
-    prices[FEE_TYPES.PRIORITY] = 0;
-    return prices;
-  };
+export class AVN_Driver extends GenericDriver {
+  nativeAssetSymbol: string = 'AVT';
 
   buildFee = (proposal: any) => {
-    return new EthereumFee(proposal);
+    return new AventusFee(proposal);
   };
 
   getTxSendProposals = async (destination: string, valueToSend: number) => {
-    const currency = this.assetConfig.symbol!;
-    const privateKey = this.assetConfig.privKey!;
-
-    let prices = await this.getGasFeePrices();
     let fees: IFeeMap = {};
 
-    let body = {
-      to: destination,
-      amount: valueToSend,
-      currency: currency,
-      fee: {
-        gasLimit: currency === this.nativeAssetSymbol ? 40000 : null,
-        gasPrice: prices[FEE_TYPES.REGULAR].toString(),
+    fees[FEE_TYPES.REGULAR] = this.buildFee({
+      value: 0,
+      proposal: {
+        to: destination,
+        valueToSend,
       },
-      fromPrivateKey: privateKey,
-    };
-
-    let proposal = await this.buildProposal(body);
-
-    fees[FEE_TYPES.REGULAR] = this.buildFee(proposal);
-
-    body = {
-      to: destination,
-      amount: valueToSend,
-      currency: currency,
-      fee: {
-        gasLimit: currency === this.nativeAssetSymbol ? 40000 : null,
-        gasPrice: prices[FEE_TYPES.PRIORITY].toString(),
-      },
-      fromPrivateKey: privateKey,
-    };
-
-    proposal = await this.buildProposal(body);
-
-    fees[FEE_TYPES.PRIORITY] = this.buildFee(proposal);
+    });
 
     return fees;
   };

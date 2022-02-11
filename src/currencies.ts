@@ -1,4 +1,5 @@
 export enum Currency {
+  AVT = 'AVT',
   BTC = 'BTC',
   BCH = 'BCH',
   LTC = 'LTC',
