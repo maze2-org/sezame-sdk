@@ -68,10 +68,10 @@
     "wallet",
     "typescript"
   ],
-  "homepage": "https://coingrig.com",
+  "homepage": "https://iabsis.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coingrig/core.git"
+    "url": "git+https://github.com/maze2-org/sezame-sdk.git"
   },
   "dependencies": {
     "@metamask/eth-sig-util": "^4.0.0",
