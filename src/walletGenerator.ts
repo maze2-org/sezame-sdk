@@ -8,6 +8,7 @@ import {
   EthereumGenerator,
   PolygonGenerator,
 } from './generators';
+import { WalletDescription } from './utils/types/WalletDescription';
 
 const DRIVER_NAMESPACE: {
   [key: string]: any;
@@ -115,5 +116,23 @@ export class WalletGenerator {
   ) {
     let driver = WalletGenerator.getDriver(chain);
     return driver.generateAddressFromXPub(xpub, derivation, config);
+  }
+
+  /**
+   *
+   * @param {string} mnemonic Seed phrase of the wallet
+   * @param {string} chain The type of chain
+   * @param {integer} derivation
+   * @param {*} [config=CONFIG]
+   * @returns {WalletDescription} Description of the wallet
+   */
+  static async generateKeyPairFromMnemonic(
+    mnemonic: string,
+    chain: Chains,
+    derivation: any,
+    config: any = CONFIG
+  ): Promise<WalletDescription> {
+    const driver = WalletGenerator.getDriver(chain);
+    return driver.generateWalletFromMnemonic(mnemonic, derivation, config);
   }
 }

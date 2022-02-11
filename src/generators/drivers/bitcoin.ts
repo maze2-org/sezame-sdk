@@ -7,6 +7,7 @@ import { mnemonicToSeed } from 'bip39';
 import { BTC_DERIVATION_PATH, TESTNET_DERIVATION_PATH } from '../../constants';
 import { CONFIG } from '../../utils/config';
 import { GenericGenerator } from '../GenericGenerator';
+import { WalletDescription } from '../../utils/types/WalletDescription';
 
 /**
  *
@@ -49,5 +50,33 @@ export class BitcoinGenerator extends GenericGenerator {
     const address = payments.p2wpkh({ pubkey: w.publicKey, network })
       .address as string;
     return address;
+  }
+
+  /**
+   * Generate the public key / private key and wallet address
+   *
+   * @param {string} mnemonic Mnemoninc string
+   * @param {number} derivation Derivation key
+   * @param {*} config
+   * @returns
+   */
+  static async generateWalletFromMnemonic(
+    mnemonic: string,
+    derivation: number,
+    config: any = CONFIG
+  ): Promise<WalletDescription> {
+    const privateKey = await this.generatePrivateKeyFromMnemonic(
+      mnemonic,
+      derivation,
+      config
+    );
+    const publicKey = await this.generateWalletXpub(mnemonic, config);
+    const address = await this.generateAddressFromXPub(
+      publicKey,
+      derivation,
+      config
+    );
+
+    return { privateKey, publicKey, address };
   }
 }

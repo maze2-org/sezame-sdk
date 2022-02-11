@@ -41,4 +41,20 @@ export class GenericGenerator {
    * @returns {string} The Public Key
    */
   static generateAddressFromXPub(_xpub: any, _derivation: any, _config: any) {}
+
+  /**
+   * Generate teh wallet's Public Address
+   *
+   * @static
+   * @param {string} mnemonic
+   * @param {integer} derivation
+   * @param {*} config
+   * @memberof GenericGenerator
+   * @returns {string} The Public Key
+   */
+  static generateWalletFromMnemonic(
+    _mnemonic: string,
+    _derivation: any,
+    _config: any
+  ) {}
 }

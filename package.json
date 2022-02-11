@@ -101,5 +101,6 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
     "testTimeout": 30000
-  }
+  },
+  "types": "./dist/index.d.ts"
 }

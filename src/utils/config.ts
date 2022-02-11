@@ -28,13 +28,6 @@ export interface IConfig {
 }
 
 const TESTNET = String(process.env.TESTNET) === 'true';
-console.log(
-  'TESTNET: ',
-  process.env.TESTNET,
-  TESTNET,
-  typeof process.env.TESTNET,
-  typeof TESTNET
-);
 
 const MAINNET_CONFIG: IConfig = MAINNET_CONFIG_DATA;
 const TESTNET_CONFIG: IConfig = TESTNET_CONFIG_DATA;
