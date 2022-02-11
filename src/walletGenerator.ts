@@ -2,6 +2,7 @@ import { Chains } from './chains';
 import { CONFIG } from './utils/config';
 import { generateMnemonic } from 'bip39';
 import {
+  AvnGenerator,
   BitcoinGenerator,
   BscGenerator,
   EthereumGenerator,
@@ -15,6 +16,7 @@ const DRIVER_NAMESPACE: {
   [Chains.ETH]: EthereumGenerator,
   [Chains.POLYGON]: PolygonGenerator,
   [Chains.BSC]: BscGenerator,
+  [Chains.AVN]: AvnGenerator,
 };
 
 /**
