@@ -15,13 +15,13 @@
     "node": ">=10"
   },
   "scripts": {
-    "prepare": "patch-package",
+    "postinstall": "patch-package --exclude 'nothing'",
+    "prepare": "tsdx build",
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint src test",
     "lint-fix": "tsdx lint --fix src test",
-    "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
     "docs": "jsdoc2md \"./src/**/*.ts\" --configure ./jsdoc2md.json --template README.hbs > ./README.md"
@@ -83,6 +83,7 @@
     "alephium-js": "^1.0.9",
     "avn-api": "^0.5.1",
     "axios": "0.21.1",
+    "bignumber": "^1.1.0",
     "bignumber.js": "9.0.1",
     "bip32": "2.0.6",
     "bip39": "3.0.4",
