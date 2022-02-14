@@ -36,14 +36,14 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "module": "dist/core.esm.js",
+  "module": "dist/sezame-sdk.esm.js",
   "size-limit": [
     {
-      "path": "dist/core.cjs.production.min.js",
+      "path": "dist/sezame-sdk.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/core.esm.js",
+      "path": "dist/sezame-sdk.esm.js",
       "limit": "10 KB"
     }
   ],
