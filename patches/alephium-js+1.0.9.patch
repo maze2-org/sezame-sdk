@@ -1,0 +1,12 @@
+diff --git a/node_modules/alephium-js/package.json b/node_modules/alephium-js/package.json
+index fc1b2d3..844697d 100644
+--- a/node_modules/alephium-js/package.json
++++ b/node_modules/alephium-js/package.json
+@@ -5,7 +5,6 @@
+   "license": "GPL",
+   "main": "dist/lib/index.js",
+   "types": "dist/lib/index.d.ts",
+-  "type": "module",
+   "repository": {
+     "type": "git",
+     "url": "git@github.com:alephium/alephium-js.git"
