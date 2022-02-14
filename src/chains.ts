@@ -7,6 +7,7 @@
  * @property {string} POLYGON "POLYGON"
  * @property {string} BSC "BSC"
  * @property {string} AVN "AVN"
+ * @property {string} ALPH "ALPH"
  */
 export enum Chains {
   BTC = 'BTC',
@@ -14,4 +15,5 @@ export enum Chains {
   POLYGON = 'POLYGON',
   BSC = 'BSC',
   AVN = 'AVN',
+  ALPH = 'ALPH',
 }

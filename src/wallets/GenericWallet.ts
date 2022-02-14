@@ -112,6 +112,7 @@ export class GenericWallet implements IWallet {
     for (let i = 0; i < drivers.length; i++) {
       // Try all drivers in case one of them fails
       const driverDescription: any = drivers[i];
+
       try {
         var driver = new this.FEES_DRIVER_NAMESPACE[driverDescription.driver](
           this.config,
@@ -140,6 +141,7 @@ export class GenericWallet implements IWallet {
 
     let drivers =
       CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]?.transaction ?? [];
+
     for (let i = 0; i < drivers.length; i++) {
       // Try all drivers in case one of them fails
       const driverDescription: any = drivers[i];

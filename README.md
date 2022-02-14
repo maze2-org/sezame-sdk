@@ -21,6 +21,8 @@ Import the library in your project with `yarn add sezame-sdk`
     sezameSdk.WalletGenerator.generateKeyPairFromMnemonic(mnemonic, "BTC", 0);
     // Create an avn wallet
     sezameSdk.WalletGenerator.generateKeyPairFromMnemonic(mnemonic, "AVN", 0);
+    // Create an alephium wallet
+    sezameSdk.WalletGenerator.generateKeyPairFromMnemonic(mnemonic, "ALPH", 0),
 
 
 ```
@@ -53,6 +55,19 @@ Import the library in your project with `yarn add sezame-sdk`
     const avnFees = await avnWallet.getTxSendProposals("5FZ9egr9M1tGJ1aEUWG6TPkoko8j7cX2TwtchcFmaMWZzMVU", 1);
     const txAvn = await avnWallet.postAvnSend(avnFees.regular);
     console.log(txAvn);
+
+    // Transfer example alph
+    const alphDescriptor = {
+        privKey: wallets.alph.privateKey,
+        pubKey: wallets.alph.publicKey,
+        walletAddress: wallets.alph.address,
+        chain: "ALPH",
+        symbol: "ALPH",
+    };
+    const alphWallet = sezameSdk.WalletFactory.getWallet(alphDescriptor);
+    const alphFees = await alphWallet.getTxSendProposals("1C5axNMef3Xm4QJmK9VySHdEQ8enJcaPYWd3z1LgxyCY9", 1);
+    const txAlph = await alphWallet.postTxSend(alphFees.regular);
+    console.log(txAlph);
 ```
 
 ## Library Development setup

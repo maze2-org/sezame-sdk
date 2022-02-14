@@ -3,3 +3,4 @@ export { BscGenerator } from './drivers/bsc';
 export { EthereumGenerator } from './drivers/ethereum';
 export { PolygonGenerator } from './drivers/polygon';
 export { AvnGenerator } from './drivers/avn';
+export { AlephiumGenerator } from './drivers/alephium';

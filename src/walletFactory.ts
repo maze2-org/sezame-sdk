@@ -5,6 +5,7 @@ import { EthereumWallet } from './wallets/types/EthereumWallet';
 import { BscWallet } from './wallets/types/BscWallet';
 import { PolygonWallet } from './wallets/types/PolygonWallet';
 import { AvnWallet } from './wallets/types/AvnWallet';
+import { AlephiumWallet } from './wallets/types/AlephiumWallet';
 
 /**
  * Implements the Factory pattern to help generate easily wallets
@@ -41,6 +42,9 @@ export class WalletFactory {
         break;
       case Chains.AVN:
         wallet = new AvnWallet(config);
+        break;
+      case Chains.ALPH:
+        wallet = new AlephiumWallet(config);
         break;
       default:
         throw new Error('Unsupported wallet blockchain');

@@ -1,19 +1,23 @@
 import { IFeeMap, FEE_TYPES } from '../IFee';
 import { GenericDriver } from '../GenericDriver';
-import { AventusFee } from '../types/AventusFee';
+import { AlephiumFee } from '../types/AlephiumFee';
 
-export class AVN_Driver extends GenericDriver {
-  nativeAssetSymbol: string = 'AVT';
+export class ALPH_Driver extends GenericDriver {
+  nativeAssetSymbol: string = 'ALPH';
 
   buildFee = (proposal: any) => {
-    return new AventusFee(proposal);
+    return new AlephiumFee(proposal);
   };
 
   getTxSendProposals = async (destination: string, valueToSend: number) => {
     let fees: IFeeMap = {};
 
+    if (!this.checkAddressValidity(destination)) {
+      throw new Error('Destination address does not exist');
+    }
+
     fees[FEE_TYPES.REGULAR] = this.buildFee({
-      value: 0,
+      value: 0.002,
       proposal: {
         to: destination,
         valueToSend,
@@ -21,6 +25,14 @@ export class AVN_Driver extends GenericDriver {
     });
 
     return fees;
+  };
+
+  checkAddressValidity = (address: string) => {
+    const match = address.match(/^[1-9A-HJ-NP-Za-km-z]{44,45}/);
+
+    if (match === null) return false;
+
+    return match[0] === address && address;
   };
 
   getProposalEndpoint() {

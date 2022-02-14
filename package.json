@@ -75,9 +75,10 @@
   },
   "dependencies": {
     "@metamask/eth-sig-util": "^4.0.0",
-    "@polkadot/keyring": "^8.3.3",
-    "@polkadot/util": "^8.3.3",
-    "@polkadot/util-crypto": "^8.3.3",
+    "@polkadot/keyring": "5.9.2",
+    "@polkadot/util": "5.9.2",
+    "@polkadot/util-crypto": "5.9.2",
+    "alephium-js": "file:/home/gillesh/Documents/development/github/alephium-js/",
     "avn-api": "^0.5.1",
     "axios": "0.21.1",
     "bignumber.js": "9.0.1",
@@ -90,6 +91,7 @@
     "dotenv": "10.0.0",
     "ethereumjs-wallet": "1.0.1",
     "hdkey": "2.0.1",
+    "isomorphic-fetch": "^3.0.0",
     "web3": "1.5.2"
   },
   "jest": {

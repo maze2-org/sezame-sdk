@@ -1,11 +1,8 @@
+import 'isomorphic-fetch';
 import * as Generators from './generators';
-
 import * as Balances from './balances';
-
 import * as Fees from './fees';
-
 import * as Transactions from './transactions';
-
 import * as CurrencyFunctionsfrom from './currencyFunctions';
 
 require('dotenv').config();
@@ -21,5 +18,4 @@ export { Balances };
 export { Fees };
 export { Transactions };
 export { CurrencyFunctionsfrom };
-
 export { getAllCoins, getCoins } from './market/getCoins';

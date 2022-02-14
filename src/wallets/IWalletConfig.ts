@@ -25,4 +25,5 @@ export interface IWalletConfig {
   };
   walletAddress: null | string;
   privKey: null | string;
+  pubKey: null | string;
 }

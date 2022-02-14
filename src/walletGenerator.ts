@@ -7,6 +7,7 @@ import {
   BscGenerator,
   EthereumGenerator,
   PolygonGenerator,
+  AlephiumGenerator,
 } from './generators';
 import { WalletDescription } from './utils/types/WalletDescription';
 
@@ -18,6 +19,7 @@ const DRIVER_NAMESPACE: {
   [Chains.POLYGON]: PolygonGenerator,
   [Chains.BSC]: BscGenerator,
   [Chains.AVN]: AvnGenerator,
+  [Chains.ALPH]: AlephiumGenerator,
 };
 
 /**

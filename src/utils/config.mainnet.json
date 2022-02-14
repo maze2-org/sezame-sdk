@@ -24,7 +24,7 @@
         {
           "driver": "BSC_Driver",
           "config": {
-            "endpoint": "https://bsc-dataseed.binance.org/"           
+            "endpoint": "https://bsc-dataseed.binance.org/"
           }
         }
       ]
@@ -100,7 +100,7 @@
         {
           "driver": "ETH_Driver",
           "config": {
-            "endpoint": "https://api.coingrig.com/gas/eth/",            
+            "endpoint": "https://api.coingrig.com/gas/eth/",
             "proposal_endpoint": "https://api.coingrig.com/web3/eth/"
           }
         }
@@ -109,7 +109,7 @@
         {
           "driver": "ETH_Driver",
           "config": {
-            "endpoint": "https://api.coingrig.com/web3/eth/"           
+            "endpoint": "https://api.coingrig.com/web3/eth/"
           }
         }
       ]

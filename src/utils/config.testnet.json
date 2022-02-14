@@ -31,6 +31,32 @@
         }
       ]
     },
+    "ALPH": {
+      "balance": [
+        {
+          "driver": "ALPH_Driver",
+          "config": {
+            "endpoint": "https://node.sesamewallet.io"
+          }
+        }
+      ],
+      "fee": [
+        {
+          "driver": "ALPH_Driver",
+          "config": {
+            "endpoint": "https://node.sesamewallet.io"
+          }
+        }
+      ],
+      "transaction": [
+        {
+          "driver": "ALPH_Driver",
+          "config": {
+            "endpoint": "https://node.sesamewallet.io"
+          }
+        }
+      ]
+    },
     "BSC": {
       "balance": [
         {
