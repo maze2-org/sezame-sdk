@@ -7,7 +7,8 @@
         {
           "driver": "AVN_Driver",
           "config": {
-            "endpoint": "https://testnet.gateway.aventus.io/"
+            "avn_gateway_endpoint": "https://testnet.gateway.aventus.io",
+            "token_address": "0x46a1a476d02f4a79b7a38fa0863a954ae252251d"
           }
         }
       ],
@@ -15,7 +16,8 @@
         {
           "driver": "AVN_Driver",
           "config": {
-            "endpoint": "https://testnet.gateway.aventus.io/"
+            "avn_gateway_endpoint": "https://testnet.gateway.aventus.io",
+            "token_address": "0x46a1a476d02f4a79b7a38fa0863a954ae252251d"
           }
         }
       ],
@@ -36,7 +38,7 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "endpoint": "https://node.sesamewallet.io"
+            "endpoint": "https://explorer-backend.sesamewallet.io"
           }
         }
       ],

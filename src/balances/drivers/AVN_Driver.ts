@@ -1,19 +1,37 @@
+import BigNumber from 'bignumber.js';
+import { GenericBalance } from '..';
+import { AVT_UNIT } from '../../constants';
 import { GenericBalanceDriver } from '../GenericBalanceDriver';
-
+const AvnApi = require('avn-api');
 export class AVN_Driver extends GenericBalanceDriver {
   config: any;
-  getBalance = async (/* address: string */) => {
+  getBalance = async (address: string) => {
     this.getBalanceEndpoint();
-    throw new Error('Unable to retrieve balance!');
+
+    const api = new AvnApi(this.getBalanceEndpoint()[0]);
+
+    try {
+      await api.init();
+      const balance = await api.query.getAvtBalance(address);
+      return new GenericBalance(
+        this.currency,
+        new BigNumber(balance).dividedBy(AVT_UNIT).toNumber(),
+        0
+      );
+    } catch (err) {
+      throw new Error(
+        `Unable to retrieve the ${this.currency} balance: ${err}`
+      );
+    }
   };
 
   getBalanceEndpoint() {
     let endpoints = [];
-    if (this.config.endpoint) {
-      if (!Array.isArray(this.config.endpoint)) {
-        endpoints = [this.config.endpoint];
+    if (this.config.avn_gateway_endpoint) {
+      if (!Array.isArray(this.config.avn_gateway_endpoint)) {
+        endpoints = [this.config.avn_gateway_endpoint];
       } else {
-        endpoints = this.config.endpoint;
+        endpoints = this.config.avn_gateway_endpoint;
       }
       return endpoints;
     }

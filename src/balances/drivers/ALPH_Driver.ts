@@ -1,10 +1,29 @@
 import { GenericBalanceDriver } from '../GenericBalanceDriver';
+import { ExplorerClient } from 'alephium-js';
+import { GenericBalance } from '..';
+import BigNumber from 'bignumber.js';
+import { ALPH_UNIT } from '../../constants';
 
 export class ALPH_Driver extends GenericBalanceDriver {
   config: any;
-  getBalance = async (/* address: string */) => {
-    this.getBalanceEndpoint();
-    throw new Error('Unable to retrieve balance!');
+
+  createClient = async () => {
+    return new ExplorerClient({
+      baseUrl: this.getBalanceEndpoint()[0],
+    });
+  };
+
+  getBalance = async (address: string) => {
+    const cliqueClient = await this.createClient();
+    const addressDetailsResp = await cliqueClient.getAddressDetails(address);
+
+    return new GenericBalance(
+      this.currency,
+      new BigNumber(addressDetailsResp.data.balance)
+        .dividedBy(ALPH_UNIT)
+        .toNumber(),
+      0
+    );
   };
 
   getBalanceEndpoint() {
