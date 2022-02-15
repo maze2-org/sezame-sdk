@@ -68,6 +68,19 @@ Import the library in your project with `yarn add sezame-sdk`
     const alphFees = await alphWallet.getTxSendProposals("1C5axNMef3Xm4QJmK9VySHdEQ8enJcaPYWd3z1LgxyCY9", 1);
     const txAlph = await alphWallet.postTxSend(alphFees.regular);
     console.log(txAlph);
+
+    // Retrieve avn adress balance
+    const avnWallet = sezameSdk.WalletFactory.getWallet({
+        privKey: wallets.avn.privateKey,
+        walletAddress: wallets.avn.address,
+        chain: "AVN",
+        symbol: "AVN",
+    });
+
+    process.env.SURI = wallets.avn.privateKey;
+    const avnBalance = await avnWallet.getBalance();
+    console.log(avnBalance);
+
 ```
 
 ## Library Development setup
