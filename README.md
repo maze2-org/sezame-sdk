@@ -3,29 +3,29 @@ The Sezame sdk library handling the wallet interactions
 ## How to use the library
 
 ### Usage in your project
-Import the library in your project with `yarn add sezame-sdk`
+Import the library in your project with `yarn add @maze2/sezame-sdk`
 
 ### Create wallets
 
-```javascript
-    // Create a mnemonic
-    const mnemonic = sezameSdk.WalletGenerator.generateMnemonic(128);
+~~~ javascript
+const sezameSdk = require("@maze2/sezame-sdk")
 
-    // Create an eth wallet
-    sezameSdk.WalletGenerator.generateKeyPairFromMnemonic(mnemonic, "ETH", 0);
-    // Create an bsc wallet
-    sezameSdk.WalletGenerator.generateKeyPairFromMnemonic(mnemonic, "BSC", 0);
-    // Create an polygon wallet
-    sezameSdk.WalletGenerator.generateKeyPairFromMnemonic(mnemonic, "POLYGON", 0);
-    // Create an btc wallet
-    sezameSdk.WalletGenerator.generateKeyPairFromMnemonic(mnemonic, "BTC", 0);
-    // Create an avn wallet
-    sezameSdk.WalletGenerator.generateKeyPairFromMnemonic(mnemonic, "AVN", 0);
-    // Create an alephium wallet
-    sezameSdk.WalletGenerator.generateKeyPairFromMnemonic(mnemonic, "ALPH", 0),
+// Create a mnemonic
+const mnemonic = sezameSdk.WalletGenerator.generateMnemonic(128);
 
-
-```
+// Create an eth wallet
+sezameSdk.WalletGenerator.generateKeyPairFromMnemonic(mnemonic, "ETH", 0);
+// Create an bsc wallet
+sezameSdk.WalletGenerator.generateKeyPairFromMnemonic(mnemonic, "BSC", 0);
+// Create an polygon wallet
+sezameSdk.WalletGenerator.generateKeyPairFromMnemonic(mnemonic, "POLYGON", 0);
+// Create an btc wallet
+sezameSdk.WalletGenerator.generateKeyPairFromMnemonic(mnemonic, "BTC", 0);
+// Create an avn wallet
+sezameSdk.WalletGenerator.generateKeyPairFromMnemonic(mnemonic, "AVN", 0);
+// Create an alephium wallet
+sezameSdk.WalletGenerator.generateKeyPairFromMnemonic(mnemonic, "ALPH", 0);
+~~~
 
 ### Make a transaction
 
