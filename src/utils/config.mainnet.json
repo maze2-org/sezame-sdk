@@ -2,6 +2,63 @@
   "TESTNET": false,
   "DEFAULT_DERIVATION_KEY": 0,
   "CHAIN_ENDPOINTS": {
+    "AVN": {
+      "balance": [
+        {
+          "driver": "AVN_Driver",
+          "config": {
+            "avn_gateway_endpoint": "https://mainnet.gateway.aventus.io",
+            "token_address": "0x46a1a476d02f4a79b7a38fa0863a954ae252251d"
+          }
+        }
+      ],
+      "fee": [
+        {
+          "driver": "AVN_Driver",
+          "config": {
+            "avn_gateway_endpoint": "https://mainnet.gateway.aventus.io",
+            "token_address": "0x46a1a476d02f4a79b7a38fa0863a954ae252251d"
+          }
+        }
+      ],
+      "transaction": [
+        {
+          "driver": "AVN_Driver",
+          "config": {
+            "avn_gateway_endpoint": "https://mainnet.gateway.aventus.io",
+            "avn_relayer": "5EcAFwVcBo8s2D3ZSTnx2sq49wVDF3rc1yGJMx5nRp2GsK62",
+            "avn_authority": "0x7075f2ec5abe24801ce8ccb2e7ffb13284df44c7baa9a583f8fd2f0498edb547",
+            "token_address": "0x46a1a476d02f4a79b7a38fa0863a954ae252251d"
+          }
+        }
+      ]
+    },
+    "ALPH": {
+      "balance": [
+        {
+          "driver": "ALPH_Driver",
+          "config": {
+            "endpoint": "https://explorer-backend.sesamewallet.io"
+          }
+        }
+      ],
+      "fee": [
+        {
+          "driver": "ALPH_Driver",
+          "config": {
+            "endpoint": "https://node.sesamewallet.io"
+          }
+        }
+      ],
+      "transaction": [
+        {
+          "driver": "ALPH_Driver",
+          "config": {
+            "endpoint": "https://node.sesamewallet.io"
+          }
+        }
+      ]
+    },
     "BSC": {
       "balance": [
         {

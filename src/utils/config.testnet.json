@@ -38,7 +38,7 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "endpoint": "https://explorer-backend.sesamewallet.io"
+            "endpoint": "https://testnet.alephium.org"
           }
         }
       ],
@@ -46,7 +46,7 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "endpoint": "https://node.sesamewallet.io"
+            "endpoint": "https://testnet-wallet.alephium.org"
           }
         }
       ],
@@ -54,7 +54,7 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "endpoint": "https://node.sesamewallet.io"
+            "endpoint": "https://testnet-wallet.alephium.org"
           }
         }
       ]
