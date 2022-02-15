@@ -2166,9 +2166,10 @@ ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.3, ajv@^6.12.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-"alephium-js@https://github.com/alephium/alephium-js/":
-  version "1.0.9"
-  resolved "https://github.com/alephium/alephium-js/#f1b067dd139ee02b399d3e734ee1bb3d42bbc440"
+alephium-js@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/alephium-js/-/alephium-js-1.0.10.tgz#a6d64e97b86cd66b4d1a8c437c6801c78b9b1972"
+  integrity sha512-n41OA5lnnWZ7suEBuPIlNLAZfosEyVWHiwdnjezkb6V4WXKkMh7RcXh0AvjqsBzuyhWlwoNuiE8upzSI9KOjMg==
   dependencies:
     base-x "^3.0.8"
     bcfg "~0.1.6"
