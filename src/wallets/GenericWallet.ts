@@ -78,6 +78,7 @@ export class GenericWallet implements IWallet {
     // Loop through the drivers to get the balance
     let drivers =
       CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]?.balance ?? [];
+
     for (let i = 0; i < drivers.length; i++) {
       // Try all drivers in case one of them fails
       const driverDescription: any = drivers[i];
@@ -85,6 +86,9 @@ export class GenericWallet implements IWallet {
         var driver = new this.BALANCE_DRIVER_NAMESPACE[
           driverDescription.driver
         ](this.config, driverDescription.config);
+        if (driver.definePrivateKey) {
+          driver.definePrivateKey(this.getPrivateKey());
+        }
         let balance = await driver.getBalance(this.getAddress());
         if (balance) {
           return balance;

@@ -5,9 +5,10 @@ import { GenericBalanceDriver } from '../GenericBalanceDriver';
 const AvnApi = require('avn-api');
 export class AVN_Driver extends GenericBalanceDriver {
   config: any;
+  definePrivateKey = (privateKey: string) => {
+    process.env.SURI = privateKey;
+  };
   getBalance = async (address: string) => {
-    this.getBalanceEndpoint();
-
     const api = new AvnApi(this.getBalanceEndpoint()[0]);
 
     try {
@@ -19,6 +20,7 @@ export class AVN_Driver extends GenericBalanceDriver {
         0
       );
     } catch (err) {
+      console.error(err);
       throw new Error(
         `Unable to retrieve the ${this.currency} balance: ${err}`
       );
