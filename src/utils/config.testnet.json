@@ -136,7 +136,7 @@
         {
           "driver": "ETH_Driver",
           "config": {
-            "endpoint": "https://rinkeby.infura.io/v3/bd9850b71b5d4cd5ae5c5c577f59f154",
+            "endpoint": "https://api.coingrig.com/teth/address/",
             "token_endpoint": "https://api.coingrig.com/web3test/eth/"
           }
         }
@@ -154,7 +154,7 @@
         {
           "driver": "ETH_Driver",
           "config": {
-            "endpoint": "https://rinkeby.infura.io/v3/bd9850b71b5d4cd5ae5c5c577f59f154"
+            "endpoint": "https://api.coingrig.com/web3test/eth/"
           }
         }
       ]
