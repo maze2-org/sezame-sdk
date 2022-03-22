@@ -10,6 +10,23 @@ export class GenericTransactionDriver {
     this.assetConfig = assetConfig;
     this.currency = assetConfig.symbol;
   }
+
+  /**
+   *
+   * @returns Emtpy array if the specific driver does not handle transaction history
+   */
+  getTransactions = async (_address: string): Promise<any[]> => {
+    return [];
+  };
+
+  /**
+   *
+   * @returns The transactions url
+   */
+  getTransactionsUrl = (_address: string): string => {
+    return '';
+  };
+
   send = async (_transaction: GenericTxProposal): Promise<any> => {
     return null;
   };

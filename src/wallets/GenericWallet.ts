@@ -73,6 +73,74 @@ export class GenericWallet implements IWallet {
   getSigningManager() {
     return this.signingManager;
   }
+
+  getTransactionsUrl = (cryptoAddress: string): string => {
+    // Loop through the drivers to get the balance
+    let drivers =
+      CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]
+        ?.transactions_history ?? [];
+
+    for (let i = 0; i < drivers.length; i++) {
+      // Try all drivers in case one of them fails
+      const driverDescription: any = drivers[i];
+      try {
+        var driver = new this.TRANSACTION_DRIVER_NAMESPACE[
+          driverDescription.driver
+        ](this.config, driverDescription.config);
+
+        if (driver.definePrivateKey) {
+          driver.definePrivateKey(this.getPrivateKey());
+        }
+
+        return driver.getTransactionsUrl(cryptoAddress);
+      } catch (e) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.log(e);
+        }
+        continue;
+      }
+    }
+
+    return '';
+  };
+
+  getTransactions = async (): Promise<Array<any>> => {
+    // Loop through the drivers to get the balance
+    let drivers =
+      CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]
+        ?.transactions_history ?? [];
+
+    for (let i = 0; i < drivers.length; i++) {
+      // Try all drivers in case one of them fails
+      const driverDescription: any = drivers[i];
+      try {
+        var driver = new this.TRANSACTION_DRIVER_NAMESPACE[
+          driverDescription.driver
+        ](this.config, driverDescription.config);
+
+        if (driver.definePrivateKey) {
+          driver.definePrivateKey(this.getPrivateKey());
+        }
+
+        let transactions = await driver.getTransactions(this.getAddress());
+        return transactions;
+      } catch (e) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.log(e);
+        }
+        continue;
+      }
+    }
+    let currencySymbol = await this.getCurrencySymbol();
+    if (!currencySymbol) {
+      throw new Error(
+        'Unable to retrieve balance for a contract without a currency symbol!'
+      );
+    }
+
+    return [];
+  };
+
   // End of common functions
   getBalance = async () => {
     // Loop through the drivers to get the balance

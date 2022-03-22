@@ -31,18 +31,13 @@ export class Web3SigningManager {
   }
 
   async signTypedData(dataToSign: any) {
-    // console.log('private key', this.privateKey);
     let privateKeyBuffer = toBuffer(this.privateKey);
-    // console.log('privateKeyBuffer', privateKeyBuffer);
-    // console.log('dataToSign', dataToSign);
     let sig = web3SignTypeData({
       privateKey: privateKeyBuffer,
       data: dataToSign,
       version: SignTypedDataVersion.V3,
     });
-    // console.log('sig', sig);
     return sig;
-    // return (this.client.eth.accounts.sign(dataToSign, this.privateKey)).signature;
   }
 
   async signTransaction(transactionObject: any) {

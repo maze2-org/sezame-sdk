@@ -31,6 +31,15 @@
             "token_address": "0x46a1a476d02f4a79b7a38fa0863a954ae252251d"
           }
         }
+      ],
+      "transactions_history": [
+        {
+          "driver": "AVN_Driver",
+          "config": {
+            "api_transction_url": "https://testnet.index.aventus.io:3000/transactions",
+            "explorer_url": "https://testnet.explorer.aventus.io/#/address/{address}"
+          }
+        }
       ]
     },
     "ALPH": {

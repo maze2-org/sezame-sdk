@@ -22,11 +22,6 @@ export class WEB3_Driver extends GenericTransactionDriver {
         .on('receipt', function(_receipt) {
           // resolve(receipt.transactionHash);
         })
-        // Fired for every confirmation up to the 12th confirmation.
-        // .on('confirmation', function(_confirmationNumber, _receipt){
-        //   console.log('_confirmationNumber', _confirmationNumber)
-        //   resolve(_receipt);
-        // })
         .on('error', function(error) {
           reject(error);
         });

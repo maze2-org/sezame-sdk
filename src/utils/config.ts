@@ -7,6 +7,7 @@ interface IGENERIC_ENDPOINTS_MAP {
 
 export interface IGENERIC_ENDPOINTS {
   balance: any;
+  transactions_history?: any;
   fee: any;
   transaction: any;
   other?: IGENERIC_ENDPOINTS_MAP;
