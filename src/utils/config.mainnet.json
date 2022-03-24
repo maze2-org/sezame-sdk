@@ -31,6 +31,16 @@
             "token_address": "0x46a1a476d02f4a79b7a38fa0863a954ae252251d"
           }
         }
+      ],
+      "transactions_history": [
+        {
+          "driver": "AVN_Driver",
+          "config": {
+            "avn_gateway_endpoint": "https://mainnet.gateway.aventus.io",
+            "api_transction_url": "https://mainnet.index.aventus.io:3000/transactions",
+            "explorer_url": "https://mainnet.explorer.aventus.io/#/address/{address}"
+          }
+        }
       ]
     },
     "ALPH": {
@@ -38,7 +48,8 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "endpoint": "https://explorer-backend.sesamewallet.io"
+            "explorer": "https://explorer-backend.sesamewallet.io",
+            "node": "https://node.sesamewallet.io"
           }
         }
       ],
@@ -46,7 +57,8 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "endpoint": "https://node.sesamewallet.io"
+            "explorer": "https://explorer-backend.sesamewallet.io",
+            "node": "https://node.sesamewallet.io"
           }
         }
       ],
@@ -54,7 +66,18 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "endpoint": "https://node.sesamewallet.io"
+            "explorer": "https://explorer-backend.sesamewallet.io",
+            "node": "https://node.sesamewallet.io"
+          }
+        }
+      ],
+      "transactions_history": [
+        {
+          "driver": "ALPH_Driver",
+          "config": {
+            "explorer": "https://explorer-backend.sesamewallet.io",
+            "node": "https://node.sesamewallet.io",
+            "explorer_url": "https://explorer.sesamewallet.io/#/addresses/{address}"
           }
         }
       ]

@@ -2166,10 +2166,10 @@ ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.3, ajv@^6.12.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-alephium-js@^1.0.10:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/alephium-js/-/alephium-js-1.0.10.tgz#a6d64e97b86cd66b4d1a8c437c6801c78b9b1972"
-  integrity sha512-n41OA5lnnWZ7suEBuPIlNLAZfosEyVWHiwdnjezkb6V4WXKkMh7RcXh0AvjqsBzuyhWlwoNuiE8upzSI9KOjMg==
+alephium-js@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/alephium-js/-/alephium-js-1.1.1.tgz#f6691e3cda140ec9b90b346547cb007022be5a26"
+  integrity sha512-IEKi5127+VnjEZ0Jaedqcn5sb0O0j9goUJnZ6BEmEXk1gBl29Af8Y6j28c+l5S05cAGVF4fGtCd1x+qfA/mzJg==
   dependencies:
     base-x "^3.0.8"
     bcfg "~0.1.6"
@@ -2177,6 +2177,7 @@ alephium-js@^1.0.10:
     bip39 "^3.0.4"
     blakejs "^1.1.1"
     browserify-sha3 "^0.0.5"
+    cross-fetch "^3.1.5"
     elliptic "^6.5.4"
 
 ansi-colors@^4.1.1:
@@ -2662,7 +2663,7 @@ base@^0.11.1:
 
 bcfg@~0.1.6:
   version "0.1.7"
-  resolved "https://registry.yarnpkg.com/bcfg/-/bcfg-0.1.7.tgz#610198a67a56160305fdc1f54b5b5c90b52530d7"
+  resolved "https://registry.npmjs.org/bcfg/-/bcfg-0.1.7.tgz"
   integrity sha512-+4beq5bXwfmxdcEoHYQsaXawh1qFzjLcRvPe5k5ww/NEWzZTm56Jk8LuPmfeGB7X584jZ8xGq6UgMaZnNDa5Ww==
   dependencies:
     bsert "~0.0.10"
@@ -2696,7 +2697,7 @@ bignumber.js@9.0.1, bignumber.js@^9.0.0:
 
 bignumber@^1.1.0:
   version "1.1.0"
-  resolved "https://registry.yarnpkg.com/bignumber/-/bignumber-1.1.0.tgz#e6ab0a743da5f3ea018e5c17597d121f7868c159"
+  resolved "https://registry.npmjs.org/bignumber/-/bignumber-1.1.0.tgz"
   integrity sha1-5qsKdD2l8+oBjlwXWX0SH3howVk=
 
 binary-extensions@^1.0.0:
@@ -2723,7 +2724,7 @@ bip174@^2.0.1:
 
 bip32@2.0.6, bip32@^2.0.4, bip32@^2.0.6:
   version "2.0.6"
-  resolved "https://registry.yarnpkg.com/bip32/-/bip32-2.0.6.tgz#6a81d9f98c4cd57d05150c60d8f9e75121635134"
+  resolved "https://registry.npmjs.org/bip32/-/bip32-2.0.6.tgz"
   integrity sha512-HpV5OMLLGTjSVblmrtYRfFFKuQB+GArM0+XP8HGWfJ5vxYBqo+DesvJwOdC2WJ3bCkZShGf0QIfoIpeomVzVdA==
   dependencies:
     "@types/node" "10.12.18"
@@ -2736,7 +2737,7 @@ bip32@2.0.6, bip32@^2.0.4, bip32@^2.0.6:
 
 bip39@3.0.4, bip39@^3.0.4:
   version "3.0.4"
-  resolved "https://registry.yarnpkg.com/bip39/-/bip39-3.0.4.tgz#5b11fed966840b5e1b8539f0f54ab6392969b2a0"
+  resolved "https://registry.npmjs.org/bip39/-/bip39-3.0.4.tgz"
   integrity sha512-YZKQlb752TrUWqHWj7XAwCSjYEgGAk+/Aas3V7NyjQeZYsztO8JnQUaCWhcnL4T+jL8nvB8typ2jRPzTlgugNw==
   dependencies:
     "@types/node" "11.11.6"
@@ -2930,7 +2931,7 @@ browserify-rsa@^4.0.0, browserify-rsa@^4.0.1:
 
 browserify-sha3@^0.0.5:
   version "0.0.5"
-  resolved "https://registry.yarnpkg.com/browserify-sha3/-/browserify-sha3-0.0.5.tgz#890e8014dfd1579961e58fa30dd74a5f187bb423"
+  resolved "https://registry.npmjs.org/browserify-sha3/-/browserify-sha3-0.0.5.tgz"
   integrity sha512-P3F2bFpWG8aC+1FUeMzpeXDLCAZKHYOh9l+Yg6gVgNIU4Bp0/Vkvm2wEwXgDBWlKoobOIpyQbtkPfcJ+LSKNCA==
   dependencies:
     js-sha3 "^0.8.0"
@@ -3001,7 +3002,7 @@ bser@2.1.1:
 
 bsert@~0.0.10:
   version "0.0.10"
-  resolved "https://registry.yarnpkg.com/bsert/-/bsert-0.0.10.tgz#231ac82873a1418c6ade301ab5cd9ae385895597"
+  resolved "https://registry.npmjs.org/bsert/-/bsert-0.0.10.tgz"
   integrity sha512-NHNwlac+WPy4t2LoNh8pXk8uaIGH3NSaIUbTTRXGpE2WEbq0te/tDykYHkFK57YKLPjv/aGHmbqvnGeVWDz57Q==
 
 buffer-compare@=1.1.1:
@@ -3656,6 +3657,13 @@ create-hmac@^1.1.0, create-hmac@^1.1.3, create-hmac@^1.1.4, create-hmac@^1.1.7:
     ripemd160 "^2.0.0"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
+
+cross-fetch@^3.1.5:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.5.tgz#e1389f44d9e7ba767907f7af8454787952ab534f"
+  integrity sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==
+  dependencies:
+    node-fetch "2.6.7"
 
 cross-spawn@^6.0.0, cross-spawn@^6.0.5:
   version "6.0.5"
@@ -7479,7 +7487,7 @@ node-addon-api@^2.0.0:
   resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-2.0.2.tgz"
   integrity sha512-Ntyt4AIXyaLIuMHF6IOoTakB3K+RWxwtsHNRxllEoA6vPwP9o4866g6YWDLUdnucilZhmkxiHwHr11gAENw+QA==
 
-node-fetch@^2.6.1:
+node-fetch@2.6.7, node-fetch@^2.6.1:
   version "2.6.7"
   resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.7.tgz"
   integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==
@@ -8307,7 +8315,7 @@ postcss@^8.2.1, postcss@^8.2.15:
 
 postinstall-prepare@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.yarnpkg.com/postinstall-prepare/-/postinstall-prepare-2.0.0.tgz#2a6867c1a13a05502aa115d0495efbbd778769cb"
+  resolved "https://registry.npmjs.org/postinstall-prepare/-/postinstall-prepare-2.0.0.tgz"
   integrity sha512-lLFwEKdnGLAaRAm8OpXP6HwrXRW+b8Hh9vRhVHZKmCdobd+D21YM38BCDsi3zrePLSe8Tt0H/mbYkh7/ySQQMg==
 
 prelude-ls@~1.1.2:

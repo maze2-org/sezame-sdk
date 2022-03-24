@@ -28,11 +28,11 @@ export class ALPH_Driver extends GenericBalanceDriver {
 
   getBalanceEndpoint() {
     let endpoints = [];
-    if (this.config.endpoint) {
-      if (!Array.isArray(this.config.endpoint)) {
-        endpoints = [this.config.endpoint];
+    if (this.config.explorer) {
+      if (!Array.isArray(this.config.explorer)) {
+        endpoints = [this.config.explorer];
       } else {
-        endpoints = this.config.endpoint;
+        endpoints = this.config.explorer;
       }
       return endpoints;
     }

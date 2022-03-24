@@ -1,23 +1,34 @@
 import { GenericTransactionDriver } from '../GenericTransactionDriver';
 import { GenericTxProposal } from '../../fees/GenericTxProposal';
-import { AVT_UNIT } from '../../constants';
-import BigNumber from 'bignumber.js';
+// import { AVT_UNIT } from '../../constants';
+// import BigNumber from 'bignumber.js';
 import axios from 'axios';
+import BigNumber from 'bignumber.js';
+import { AVT_UNIT } from '../../constants';
 
 const AvnApi = require('avn-api');
 
 export class AVN_Driver extends GenericTransactionDriver {
-  send = async (transaction: GenericTxProposal): Promise<string> => {
-    const data: any = transaction.getData();
+  initApi = async () => {
     const api = new AvnApi(this.getEndpoint());
     await api.init();
+    return api;
+  };
 
-    const txId = await api.send.transferToken(
+  send = async (transaction: GenericTxProposal): Promise<string> => {
+    const data: any = transaction.getData();
+    const api = await this.initApi();
+
+    const amount = new BigNumber(data.proposal.valueToSend)
+      .multipliedBy(AVT_UNIT)
+      .toString();
+
+    const txId = await api.send.transferAvt(
       this.config.avn_relayer,
       data.proposal.to,
-      this.config.token_address,
-      new BigNumber(data.proposal.valueToSend).multipliedBy(AVT_UNIT).toString()
+      `${amount}`
     );
+
     return txId;
   };
 
@@ -25,6 +36,25 @@ export class AVN_Driver extends GenericTransactionDriver {
     return this.config.explorer_url
       ? this.config.explorer_url.replace('{address}', address)
       : '';
+  };
+
+  getTransactionStatus = async (
+    txId: string
+  ): Promise<'pending' | 'success' | 'failed' | null> => {
+    try {
+      const api = await this.initApi();
+      const status = await api.poll.requestState(txId);
+
+      switch (status) {
+        case 'Processed':
+          return 'success';
+        default:
+          return 'pending';
+      }
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
   };
 
   getTransactions = async (address: string): Promise<any[]> => {
@@ -46,13 +76,19 @@ export class AVN_Driver extends GenericTransactionDriver {
             : [];
 
           const history = hits.map((hit: any) => {
+            const isOut = hit._source.transaction.from === address;
+
             return {
               date: new Date(hit._source.timestamp),
+              out: isOut,
               timestamp: hit._source.timestamp,
               hash: hit._source.blockHash,
-              from: hit._source.transaction.from,
-              to: hit._source.transaction.to,
-              amount: hit._source.transaction.amountToken,
+              from: [hit._source.transaction.from],
+              to: [hit._source.transaction.to],
+              amount:
+                hit._source.transaction.from === address
+                  ? '-' + hit._source.transaction.amountToken
+                  : hit._source.transaction.amountToken,
             };
           });
           resolve(history);

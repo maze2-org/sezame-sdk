@@ -104,7 +104,9 @@ export class GenericWallet implements IWallet {
     return '';
   };
 
-  getTransactions = async (): Promise<Array<any>> => {
+  getTransactionStatus = async (
+    txId: string
+  ): Promise<'pending' | 'success' | 'failed' | null> => {
     // Loop through the drivers to get the balance
     let drivers =
       CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]
@@ -122,6 +124,40 @@ export class GenericWallet implements IWallet {
           driver.definePrivateKey(this.getPrivateKey());
         }
 
+        return driver.getTransactionStatus(txId);
+      } catch (e) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.log(e);
+        }
+        continue;
+      }
+    }
+
+    return null;
+  };
+
+  getTransactions = async (): Promise<Array<any>> => {
+    // Loop through the drivers to get the balance
+    let drivers =
+      CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]
+        ?.transactions_history ?? [];
+    console.log('passe1');
+    let error = null;
+    for (let i = 0; i < drivers.length; i++) {
+      error = null;
+      // Try all drivers in case one of them fails
+      console.log('passe2');
+      const driverDescription: any = drivers[i];
+      try {
+        var driver = new this.TRANSACTION_DRIVER_NAMESPACE[
+          driverDescription.driver
+        ](this.config, driverDescription.config);
+
+        if (driver.definePrivateKey) {
+          driver.definePrivateKey(this.getPrivateKey());
+        }
+
+        console.log('passe3', driver);
         let transactions = await driver.getTransactions(this.getAddress());
         return transactions;
       } catch (e) {
@@ -131,6 +167,11 @@ export class GenericWallet implements IWallet {
         continue;
       }
     }
+
+    if (error) {
+      throw error;
+    }
+
     let currencySymbol = await this.getCurrencySymbol();
     if (!currencySymbol) {
       throw new Error(
@@ -214,10 +255,12 @@ export class GenericWallet implements IWallet {
     let drivers =
       CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]?.transaction ?? [];
 
+    let error = null;
     for (let i = 0; i < drivers.length; i++) {
       // Try all drivers in case one of them fails
       const driverDescription: any = drivers[i];
       try {
+        error = null;
         var driver = new this.TRANSACTION_DRIVER_NAMESPACE[
           driverDescription.driver
         ](this.config, driverDescription.config);
@@ -225,11 +268,16 @@ export class GenericWallet implements IWallet {
         let tx = await driver.send(transactionProposal);
         return tx;
       } catch (e) {
+        error = e;
         if (process.env.NODE_ENV !== 'production') {
-          console.log(e);
+          console.log('COMPLETE ERROR', e);
         }
         continue;
       }
+    }
+
+    if (error) {
+      throw error;
     }
     return null;
   };
