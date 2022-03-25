@@ -124,7 +124,7 @@ export class GenericWallet implements IWallet {
           driver.definePrivateKey(this.getPrivateKey());
         }
 
-        return driver.getTransactionStatus(txId);
+        return driver.getTransactionStatus(this.config.walletAddress, txId);
       } catch (e) {
         if (process.env.NODE_ENV !== 'production') {
           console.log(e);

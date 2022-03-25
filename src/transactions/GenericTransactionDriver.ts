@@ -25,6 +25,7 @@ export class GenericTransactionDriver {
    * @returns Emtpy array if the specific driver does not handle transaction history
    */
   getTransactionStatus = async (
+    _address: string,
     _txId: string
   ): Promise<'pending' | 'success' | 'failed' | null> => {
     console.log('getTransactionStatus is not implemented for this blockchain');

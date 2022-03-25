@@ -73,6 +73,45 @@ export class ALPH_Driver extends GenericTransactionDriver {
     }
   };
 
+  getTransactionStatus = async (
+    address: string,
+    txId: string
+  ): Promise<'pending' | 'success' | 'failed' | null> => {
+    const client = await this.createClient();
+    const addressTransactionsResp = await client.explorer.getAddressTransactions(
+      address,
+      1
+    );
+
+    for (const row of addressTransactionsResp.data as any) {
+      if (row.hash === txId) {
+        switch (row.type) {
+          case 'confirmed':
+            return 'success';
+          case 'refused':
+            return 'failed';
+          default:
+            return 'pending';
+        }
+      }
+    }
+
+    return null;
+    // try {
+    //   const client = await this.createClient();
+    //   client.explorer.getAddressTransactions()
+    //   switch (status) {
+    //     case 'Processed':
+    //       return 'success';
+    //     default:
+    //       return 'pending';
+    //   }
+    // } catch (err) {
+    //   console.error(err);
+    //   return null;
+    // }
+  };
+
   getTransactions = async (address: string): Promise<any[]> => {
     const client = await this.createClient();
 
@@ -83,20 +122,21 @@ export class ALPH_Driver extends GenericTransactionDriver {
           const history = txs.data.map(tx => {
             const amountDelta = this.calAmountDelta(tx, address);
             const isOut = amountDelta < new BigNumber('0');
-
             const IOAddressesList = isOut ? tx.outputs : tx.inputs;
+            const to = isOut
+              ? this.renderIOAccountList(address, IOAddressesList)
+              : address;
+            const from = isOut
+              ? address
+              : this.renderIOAccountList(address, IOAddressesList);
 
             return {
               out: isOut,
               date: new Date(tx.timestamp),
               timestamp: tx.timestamp,
               hash: `${tx.hash}`,
-              from: isOut
-                ? this.renderIOAccountList(address, IOAddressesList)
-                : address,
-              to: isOut
-                ? address
-                : this.renderIOAccountList(address, IOAddressesList),
+              from,
+              to,
               amount: amountDelta.dividedBy(ALPH_UNIT).toString(),
             };
           });

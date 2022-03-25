@@ -39,6 +39,7 @@ export class AVN_Driver extends GenericTransactionDriver {
   };
 
   getTransactionStatus = async (
+    _address: string,
     txId: string
   ): Promise<'pending' | 'success' | 'failed' | null> => {
     try {
