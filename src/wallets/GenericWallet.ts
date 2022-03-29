@@ -218,12 +218,14 @@ export class GenericWallet implements IWallet {
   getTxSendProposals = async (destination: string, valueToSend: any) => {
     // Loop through the drivers to get the fees
     let drivers = CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]?.fee ?? [];
+    let error = null;
 
     for (let i = 0; i < drivers.length; i++) {
       // Try all drivers in case one of them fails
       const driverDescription: any = drivers[i];
 
       try {
+        error = null;
         var driver = new this.FEES_DRIVER_NAMESPACE[driverDescription.driver](
           this.config,
           driverDescription.config
@@ -233,15 +235,21 @@ export class GenericWallet implements IWallet {
           continue;
         }
         let fees = await driver.getTxSendProposals(destination, valueToSend);
+
         if (fees) {
           return fees;
         }
       } catch (e) {
+        error = e;
         if (process.env.NODE_ENV !== 'production') {
           console.log(e);
         }
         continue;
       }
+    }
+
+    if (error) {
+      throw error;
     }
     return null;
   };
