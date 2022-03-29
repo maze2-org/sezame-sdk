@@ -141,12 +141,10 @@ export class GenericWallet implements IWallet {
     let drivers =
       CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]
         ?.transactions_history ?? [];
-    console.log('passe1');
     let error = null;
     for (let i = 0; i < drivers.length; i++) {
       error = null;
       // Try all drivers in case one of them fails
-      console.log('passe2');
       const driverDescription: any = drivers[i];
       try {
         var driver = new this.TRANSACTION_DRIVER_NAMESPACE[
@@ -157,7 +155,6 @@ export class GenericWallet implements IWallet {
           driver.definePrivateKey(this.getPrivateKey());
         }
 
-        console.log('passe3', driver);
         let transactions = await driver.getTransactions(this.getAddress());
         return transactions;
       } catch (e) {

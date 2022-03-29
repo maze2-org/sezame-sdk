@@ -1,6 +1,9 @@
 import { IFeeMap, FEE_TYPES } from '../IFee';
 import { GenericDriver } from '../GenericDriver';
 import { AventusFee } from '../types/AventusFee';
+import BigNumber from 'bignumber.js';
+import { AVT_UNIT } from '../../constants';
+const AvnApi = require('avn-api');
 
 export class AVN_Driver extends GenericDriver {
   nativeAssetSymbol: string = 'AVT';
@@ -10,10 +13,16 @@ export class AVN_Driver extends GenericDriver {
   };
 
   getTxSendProposals = async (destination: string, valueToSend: number) => {
+    const api = new AvnApi(this.config.avn_gateway_endpoint);
+    await api.init();
     let fees: IFeeMap = {};
 
+    const feeAmount = await api.query.getRelayerFees(this.config.avn_relayer);
+
     fees[FEE_TYPES.REGULAR] = this.buildFee({
-      value: 0,
+      value: new BigNumber(feeAmount.proxyAvtTransfer)
+        .dividedBy(AVT_UNIT)
+        .toString(),
       proposal: {
         to: destination,
         valueToSend,
@@ -22,12 +31,4 @@ export class AVN_Driver extends GenericDriver {
 
     return fees;
   };
-
-  getProposalEndpoint() {
-    const endpoint = this.config.proposal_endpoint;
-    if (endpoint) {
-      return endpoint;
-    }
-    throw new Error(this.currency + ' Balance currency is required in config');
-  }
 }

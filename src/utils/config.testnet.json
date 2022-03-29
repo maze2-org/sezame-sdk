@@ -17,7 +17,8 @@
           "driver": "AVN_Driver",
           "config": {
             "avn_gateway_endpoint": "https://testnet.gateway.aventus.io",
-            "token_address": "0x46a1a476d02f4a79b7a38fa0863a954ae252251d"
+            "token_address": "0x46a1a476d02f4a79b7a38fa0863a954ae252251d",
+            "avn_relayer": "5EcAFwVcBo8s2D3ZSTnx2sq49wVDF3rc1yGJMx5nRp2GsK62"
           }
         }
       ],

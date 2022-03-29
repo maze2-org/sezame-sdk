@@ -11,7 +11,6 @@ type FetchResponse = {
 
 export class ALPH_Driver extends GenericTransactionDriver {
   createClient = async () => {
-    console.log('NODE URL ', this.config.node);
     const cliqueClient = new CliqueClient({
       baseUrl: this.config.node,
     });
@@ -161,11 +160,8 @@ export class ALPH_Driver extends GenericTransactionDriver {
     if (!this.assetConfig.walletAddress) {
       throw new Error('Origin address was not defined');
     }
-    console.log('ASSET CONFIG', this.assetConfig);
-    console.log('PROPOSAL', data);
 
     try {
-      console.log('AMOUNT', amount.toString());
       const txCreateResp = await cliqueClient.clique.transactionCreate(
         this.assetConfig.walletAddress || '',
         this.assetConfig.pubKey || '',
@@ -174,14 +170,12 @@ export class ALPH_Driver extends GenericTransactionDriver {
         undefined
       );
 
-      console.log({ txCreateResp });
       const { txId, unsignedTx } = txCreateResp.data;
 
       const signature = await cliqueClient.clique.transactionSign(
         txId,
         this.assetConfig.privKey
       );
-      console.log({ signature });
 
       const txSendResp = await cliqueClient.clique.transactionSend(
         this.assetConfig.walletAddress,
@@ -189,11 +183,9 @@ export class ALPH_Driver extends GenericTransactionDriver {
         signature
       );
 
-      console.log({ txSendResp });
       return txSendResp.data.txId;
     } catch (err) {
       const error = err as FetchResponse;
-      console.log('GOT BIG ERROR', err, error);
       if (error.error && error.error.detail) {
         throw new Error(error.error.detail);
       }

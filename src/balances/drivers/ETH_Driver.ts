@@ -17,6 +17,7 @@ export class ETH_Driver extends WEB3_Driver {
         'User-Agent': UA,
       },
     };
+
     const response = await axios(param);
 
     const confirmedBalance: number = Number(
