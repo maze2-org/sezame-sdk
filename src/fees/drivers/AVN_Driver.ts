@@ -2,7 +2,7 @@ import { IFeeMap, FEE_TYPES } from '../IFee';
 import { GenericDriver } from '../GenericDriver';
 import { AventusFee } from '../types/AventusFee';
 import BigNumber from 'bignumber.js';
-import { AVT_UNIT } from '../../constants';
+// import { AVT_UNIT } from '../../constants';
 const AvnApi = require('avn-api');
 
 export class AVN_Driver extends GenericDriver {
@@ -22,9 +22,7 @@ export class AVN_Driver extends GenericDriver {
       const feeAmount = await api.query.getRelayerFees(this.config.avn_relayer);
 
       fees[FEE_TYPES.REGULAR] = this.buildFee({
-        value: new BigNumber(feeAmount.proxyAvtTransfer)
-          .dividedBy(AVT_UNIT)
-          .toString(),
+        value: new BigNumber(feeAmount.proxyAvtTransfer),
         proposal: {
           to: destination,
           valueToSend,

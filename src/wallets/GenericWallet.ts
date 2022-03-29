@@ -91,7 +91,6 @@ export class GenericWallet implements IWallet {
         if (driver.definePrivateKey) {
           driver.definePrivateKey(this.getPrivateKey());
         }
-
         return driver.getTransactionsUrl(cryptoAddress);
       } catch (e) {
         if (process.env.NODE_ENV !== 'production') {

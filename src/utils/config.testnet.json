@@ -181,6 +181,16 @@
             "endpoint": "https://api.coingrig.com/web3test/eth/"
           }
         }
+      ],
+      "transactions_history": [
+        {
+          "driver": "ETH_Driver",
+          "config": {
+            "api_transction_url": "https://api-ropsten.etherscan.io/api?module=account&action=txlist&address={address}&sort=desc&apiKey=TE6XQM4ITIIE9P34E9N59AWK6Z7T7THSCC",
+            "explorer_url": "https://ropsten.etherscan.io/address/{address}",
+            "transaction_status": "https://api-ropsten.etherscan.io/api?module=transaction&action=gettxreceiptstatus&txhash={txHash}&apikey=TE6XQM4ITIIE9P34E9N59AWK6Z7T7THSCC"
+          }
+        }
       ]
     },
     "POLYGON": {

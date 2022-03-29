@@ -14,6 +14,7 @@ export class EthereumFee extends GenericTxProposal {
       gasPrice: number;
     };
     proposal: any;
+    feeValue: number;
   } = {
     signatureId: undefined,
     fromPrivateKey: '',
@@ -22,10 +23,12 @@ export class EthereumFee extends GenericTxProposal {
       gasPrice: 0,
     },
     proposal: '',
+    feeValue: 0,
   };
   constructor(settings: any) {
     super();
     this.settings = settings;
+    this.settings.feeValue = this.getFeeValue();
   }
   getFeeValue() {
     const gasToWei = Web3.utils.toWei(

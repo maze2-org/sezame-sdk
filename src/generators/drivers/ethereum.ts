@@ -1,7 +1,7 @@
 import { hdkey as ethHdKey } from 'ethereumjs-wallet';
 import { mnemonicToSeed } from 'bip39';
 
-import { ETH_DERIVATION_PATH, TESTNET_DERIVATION_PATH } from '../../constants';
+import { ETH_DERIVATION_PATH } from '../../constants';
 import { CONFIG } from '../../utils/config';
 import { GenericGenerator } from '../GenericGenerator';
 import { WalletDescription } from '../../utils/types/WalletDescription';
@@ -13,8 +13,8 @@ import { WalletDescription } from '../../utils/types/WalletDescription';
  * @extends {GenericGenerator}
  */
 export class EthereumGenerator extends GenericGenerator {
-  static async generateWalletXpub(mnemonic: any, config: any = CONFIG) {
-    const path = config.TESTNET ? TESTNET_DERIVATION_PATH : ETH_DERIVATION_PATH;
+  static async generateWalletXpub(mnemonic: any, _config: any = CONFIG) {
+    const path = ETH_DERIVATION_PATH;
     const hdwallet = ethHdKey.fromMasterSeed(await mnemonicToSeed(mnemonic));
     const derivePath = hdwallet.derivePath(path);
     return derivePath.publicExtendedKey().toString();
@@ -22,9 +22,9 @@ export class EthereumGenerator extends GenericGenerator {
   static async generatePrivateKeyFromMnemonic(
     mnemonic: any,
     derivation: any,
-    config: any = CONFIG
+    _config: any = CONFIG
   ) {
-    const path = config.TESTNET ? TESTNET_DERIVATION_PATH : ETH_DERIVATION_PATH;
+    const path = ETH_DERIVATION_PATH;
     const hdwallet = ethHdKey.fromMasterSeed(await mnemonicToSeed(mnemonic));
     const derivePath = hdwallet.derivePath(path).deriveChild(derivation);
     return derivePath.getWallet().getPrivateKeyString();

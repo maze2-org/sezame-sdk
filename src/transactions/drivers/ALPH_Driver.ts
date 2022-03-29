@@ -96,19 +96,6 @@ export class ALPH_Driver extends GenericTransactionDriver {
     }
 
     return null;
-    // try {
-    //   const client = await this.createClient();
-    //   client.explorer.getAddressTransactions()
-    //   switch (status) {
-    //     case 'Processed':
-    //       return 'success';
-    //     default:
-    //       return 'pending';
-    //   }
-    // } catch (err) {
-    //   console.error(err);
-    //   return null;
-    // }
   };
 
   getTransactions = async (address: string): Promise<any[]> => {

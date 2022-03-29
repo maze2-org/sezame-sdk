@@ -4,7 +4,7 @@ import { fromBase58, fromSeed } from 'bip32';
 import { networks, payments } from 'bitcoinjs-lib';
 import { mnemonicToSeed } from 'bip39';
 
-import { BTC_DERIVATION_PATH, TESTNET_DERIVATION_PATH } from '../../constants';
+import { BTC_DERIVATION_PATH } from '../../constants';
 import { CONFIG } from '../../utils/config';
 import { GenericGenerator } from '../GenericGenerator';
 import { WalletDescription } from '../../utils/types/WalletDescription';
@@ -23,7 +23,7 @@ export class BitcoinGenerator extends GenericGenerator {
       config.TESTNET ? networks.testnet.bip32 : networks.bitcoin.bip32
     );
     return hdwallet
-      .derive(config.TESTNET ? TESTNET_DERIVATION_PATH : BTC_DERIVATION_PATH)
+      .derive(BTC_DERIVATION_PATH)
       .toJSON().xpub;
   }
   static async generatePrivateKeyFromMnemonic(
@@ -34,7 +34,7 @@ export class BitcoinGenerator extends GenericGenerator {
     const network = config.TESTNET ? networks.testnet : networks.bitcoin;
     return fromSeed(await mnemonicToSeed(mnemonic), network)
       .derivePath(
-        config.TESTNET ? TESTNET_DERIVATION_PATH : BTC_DERIVATION_PATH
+        BTC_DERIVATION_PATH
       )
       .derive(derivation)
       .toWIF();
