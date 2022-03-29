@@ -13,21 +13,26 @@ export class AVN_Driver extends GenericDriver {
   };
 
   getTxSendProposals = async (destination: string, valueToSend: number) => {
-    const api = new AvnApi(this.config.avn_gateway_endpoint);
-    await api.init();
     let fees: IFeeMap = {};
 
-    const feeAmount = await api.query.getRelayerFees(this.config.avn_relayer);
+    try {
+      const api = new AvnApi(this.config.avn_gateway_endpoint);
+      await api.init();
 
-    fees[FEE_TYPES.REGULAR] = this.buildFee({
-      value: new BigNumber(feeAmount.proxyAvtTransfer)
-        .dividedBy(AVT_UNIT)
-        .toString(),
-      proposal: {
-        to: destination,
-        valueToSend,
-      },
-    });
+      const feeAmount = await api.query.getRelayerFees(this.config.avn_relayer);
+
+      fees[FEE_TYPES.REGULAR] = this.buildFee({
+        value: new BigNumber(feeAmount.proxyAvtTransfer)
+          .dividedBy(AVT_UNIT)
+          .toString(),
+        proposal: {
+          to: destination,
+          valueToSend,
+        },
+      });
+    } catch (err) {
+      throw new Error('INSUFFICIENT_FUNDS');
+    }
 
     return fees;
   };
