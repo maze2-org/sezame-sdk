@@ -17,7 +17,7 @@ export class ALPH_Driver extends GenericDriver {
     }
 
     fees[FEE_TYPES.REGULAR] = this.buildFee({
-      value: 0.002,
+      value: 2000000000000000,
       proposal: {
         to: destination,
         valueToSend,

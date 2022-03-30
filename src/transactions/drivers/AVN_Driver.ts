@@ -2,7 +2,7 @@ import { GenericTransactionDriver } from '../GenericTransactionDriver';
 import { GenericTxProposal } from '../../fees/GenericTxProposal';
 // import { AVT_UNIT } from '../../constants';
 // import BigNumber from 'bignumber.js';
-import axios from 'axios';
+// import axios from 'axios';
 import BigNumber from 'bignumber.js';
 import { AVT_UNIT } from '../../constants';
 
@@ -58,48 +58,50 @@ export class AVN_Driver extends GenericTransactionDriver {
     }
   };
 
-  getTransactions = async (address: string): Promise<any[]> => {
-    const api_url = this.config.api_transction_url;
+  // Temporary desactivating the transaction retrieval for Aventus. API to retrieve tsx is not ready yet.
 
-    return new Promise((resolve, reject) => {
-      axios
-        .get(
-          `${api_url}?size=20&from=0&sort=timestamp,desc&address=${address}`,
-          {
-            headers: {
-              Accept: 'application/json',
-            },
-          }
-        )
-        .then(result => {
-          const hits = result?.data?.data?.hits?.hits
-            ? result.data.data.hits.hits
-            : [];
+  // getTransactions = async (address: string): Promise<any[]> => {
+  //   const api_url = this.config.api_transction_url;
 
-          const history = hits.map((hit: any) => {
-            const isOut = hit._source.transaction.from === address;
+  //   return new Promise((resolve, reject) => {
+  //     axios
+  //       .get(
+  //         `${api_url}?size=20&from=0&sort=timestamp,desc&address=${address}`,
+  //         {
+  //           headers: {
+  //             Accept: 'application/json',
+  //           },
+  //         }
+  //       )
+  //       .then(result => {
+  //         const hits = result?.data?.data?.hits?.hits
+  //           ? result.data.data.hits.hits
+  //           : [];
 
-            return {
-              date: new Date(hit._source.timestamp),
-              out: isOut,
-              timestamp: hit._source.timestamp,
-              hash: hit._source.blockHash,
-              from: [hit._source.transaction.from],
-              to: [hit._source.transaction.to],
-              amount:
-                hit._source.transaction.from === address
-                  ? '-' + hit._source.transaction.amountToken
-                  : hit._source.transaction.amountToken,
-            };
-          });
-          resolve(history);
-        })
-        .catch(err => {
-          console.error(err);
-          reject(err);
-        });
-    });
-  };
+  //         const history = hits.map((hit: any) => {
+  //           const isOut = hit._source.transaction.from === address;
+
+  //           return {
+  //             date: new Date(hit._source.timestamp),
+  //             out: isOut,
+  //             timestamp: hit._source.timestamp,
+  //             hash: hit._source.blockHash,
+  //             from: [hit._source.transaction.from],
+  //             to: [hit._source.transaction.to],
+  //             amount:
+  //               hit._source.transaction.from === address
+  //                 ? '-' + hit._source.transaction.amountToken
+  //                 : hit._source.transaction.amountToken,
+  //           };
+  //         });
+  //         resolve(history);
+  //       })
+  //       .catch(err => {
+  //         console.error(err);
+  //         reject(err);
+  //       });
+  //   });
+  // };
 
   getEndpoint() {
     const endpoint = this.config.avn_gateway_endpoint;

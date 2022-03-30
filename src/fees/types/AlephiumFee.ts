@@ -13,8 +13,10 @@ export class AlephiumFee extends GenericTxProposal {
   settings: {
     value: number;
     proposal: AlephiumFeeProposal;
+    feeValue: number;
   } = {
     value: 0,
+    feeValue: 0,
     proposal: {
       to: '',
       valueToSend: 0,
@@ -23,6 +25,7 @@ export class AlephiumFee extends GenericTxProposal {
   constructor(settings: any) {
     super();
     this.settings = settings;
+    this.settings.feeValue = this.getFeeValue();
   }
   getFeeValue() {
     return new BigNumber(this.settings.value)
