@@ -3,7 +3,7 @@
   "title": "The Sezame SDK library",
   "description": "The Sezame SDK library handling the crypto wallet interactions",
   "author": "Maze2",
-  "version": "1.3.12",
+  "version": "1.3.13",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
