@@ -16,7 +16,9 @@ export class AVN_Driver extends GenericDriver {
     let fees: IFeeMap = {};
 
     try {
-      const api = new AvnApi(this.config.avn_gateway_endpoint);
+      const api = new AvnApi(this.config.avn_gateway_endpoint, {
+        suri: process.env.SURI,
+      });
       await api.init();
 
       const feeAmount = await api.query.getRelayerFees(this.config.avn_relayer);

@@ -10,7 +10,9 @@ export class AVN_Driver extends GenericBalanceDriver {
   };
 
   getBalance = async (address: string) => {
-    const api = new AvnApi(this.getBalanceEndpoint()[0]);
+    const api = new AvnApi(this.getBalanceEndpoint()[0], {
+      suri: process.env.SURI,
+    });
 
     try {
       await api.init();

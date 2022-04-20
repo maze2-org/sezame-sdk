@@ -10,7 +10,7 @@ const AvnApi = require('avn-api');
 
 export class AVN_Driver extends GenericTransactionDriver {
   initApi = async () => {
-    const api = new AvnApi(this.getEndpoint());
+    const api = new AvnApi(this.getEndpoint(), { suri: process.env.SURI });
     await api.init();
     return api;
   };
