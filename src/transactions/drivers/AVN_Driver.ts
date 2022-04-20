@@ -32,6 +32,43 @@ export class AVN_Driver extends GenericTransactionDriver {
     return txId;
   };
 
+  stake = async (transaction: GenericTxProposal): Promise<string> => {
+    const data: any = transaction.getData();
+    const api = await this.initApi();
+
+    const amountToStake = new BigNumber(data.proposal.valueToSend)
+      .multipliedBy(AVT_UNIT)
+      .toString();
+
+    const requestId = await api.send.stake(
+      this.config.avn_relayer,
+      amountToStake
+    );
+
+    console.log(
+      'STACKINGGGGGGGGGGGGGGGGGGGG',
+      this.config.avn_relayer,
+      amountToStake,
+      requestId
+    );
+    return requestId;
+  };
+
+  unstake = async (transaction: GenericTxProposal): Promise<string> => {
+    const data: any = transaction.getData();
+    const api = await this.initApi();
+
+    const amountToStake = new BigNumber(data.proposal.valueToSend)
+      .multipliedBy(AVT_UNIT)
+      .toString();
+
+    const requestId = await api.send.unstake(
+      this.config.avn_relayer,
+      amountToStake
+    );
+    return requestId;
+  };
+
   getTransactionsUrl = (address: string) => {
     return this.config.explorer_url
       ? this.config.explorer_url.replace('{address}', address)
@@ -45,6 +82,15 @@ export class AVN_Driver extends GenericTransactionDriver {
     try {
       const api = await this.initApi();
       const status = await api.poll.requestState(txId);
+      console.log(
+        'GOTSTATUSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
+        status,
+        txId
+      );
+      console.log(
+        'ACCOUNT_STATUSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
+        await api.query.getAccountInfo(_address)
+      );
 
       switch (status) {
         case 'Processed':

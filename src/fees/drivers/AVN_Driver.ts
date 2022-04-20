@@ -12,7 +12,11 @@ export class AVN_Driver extends GenericDriver {
     return new AventusFee(proposal);
   };
 
-  getTxSendProposals = async (destination: string, valueToSend: number) => {
+  getTxSendProposals = async (
+    destination: string,
+    valueToSend: number,
+    reason?: string
+  ) => {
     let fees: IFeeMap = {};
 
     try {
@@ -23,8 +27,21 @@ export class AVN_Driver extends GenericDriver {
 
       const feeAmount = await api.query.getRelayerFees(this.config.avn_relayer);
 
+      let amount = 0;
+      switch (reason) {
+        case 'staking':
+          amount = feeAmount.proxyIncreaseStake;
+          break;
+        case 'unstaking':
+          amount = feeAmount.proxyUnstake;
+          break;
+        default:
+          amount = feeAmount.proxyAvtTransfer;
+          break;
+      }
+
       fees[FEE_TYPES.REGULAR] = this.buildFee({
-        value: new BigNumber(feeAmount.proxyAvtTransfer),
+        value: new BigNumber(amount),
         proposal: {
           to: destination,
           valueToSend,

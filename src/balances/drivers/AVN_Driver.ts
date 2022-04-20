@@ -16,11 +16,14 @@ export class AVN_Driver extends GenericBalanceDriver {
 
     try {
       await api.init();
-      const balance = await api.query.getAvtBalance(address);
+      // const balance = await api.query.getAvtBalance(address);
+      const balance = await api.query.getAccountInfo(address);
+
       return new GenericBalance(
         this.currency,
-        new BigNumber(balance).dividedBy(AVT_UNIT).toNumber(),
-        0
+        new BigNumber(balance.totalBalance).dividedBy(AVT_UNIT).toNumber(),
+        0,
+        new BigNumber(balance.stakedBalance).dividedBy(AVT_UNIT).toNumber()
       );
     } catch (err) {
       console.error(err);

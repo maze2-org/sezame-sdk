@@ -6,11 +6,13 @@ export class GenericBalance implements IBalance {
   value = 0;
   unconfirmedBalance = 0;
   confirmedBalance = 0;
+  stakedBalance = 0;
 
   constructor(
     currency: string,
     confirmedBalance: number,
-    unconfirmedBalance: number
+    unconfirmedBalance: number,
+    stakedBalance?: number
   ) {
     this.currency = currency;
     this.value = Number(
@@ -18,6 +20,7 @@ export class GenericBalance implements IBalance {
     );
     this.confirmedBalance = confirmedBalance;
     this.unconfirmedBalance = unconfirmedBalance;
+    this.stakedBalance = stakedBalance || 0;
   }
   getValue() {
     return this.value;
@@ -27,5 +30,9 @@ export class GenericBalance implements IBalance {
   }
   getUnconfirmedBalance() {
     return this.unconfirmedBalance;
+  }
+
+  getstakedBalance() {
+    return this.stakedBalance;
   }
 }

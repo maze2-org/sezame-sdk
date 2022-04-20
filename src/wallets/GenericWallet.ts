@@ -195,6 +195,7 @@ export class GenericWallet implements IWallet {
           driver.definePrivateKey(this.getPrivateKey());
         }
         let balance = await driver.getBalance(this.getAddress());
+        console.log('GETTING_BALANCEEEEEEEEEEEEEEEEEEEEEEEEE', balance);
         if (balance) {
           return balance;
         }
@@ -211,10 +212,14 @@ export class GenericWallet implements IWallet {
         'Unable to retrieve balance for a contract without a currency symbol!'
       );
     }
-    return new GenericBalance(currencySymbol, 0, 0);
+    return new GenericBalance(currencySymbol, 0, 0, 0);
   };
   // This is a send currency transaction
-  getTxSendProposals = async (destination: string, valueToSend: any) => {
+  getTxSendProposals = async (
+    destination: string,
+    valueToSend: any,
+    reason?: string
+  ) => {
     // Loop through the drivers to get the fees
     let drivers = CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]?.fee ?? [];
     let error = null;
@@ -233,7 +238,11 @@ export class GenericWallet implements IWallet {
         if (typeof driver.getTxSendProposals !== 'function') {
           continue;
         }
-        let fees = await driver.getTxSendProposals(destination, valueToSend);
+        let fees = await driver.getTxSendProposals(
+          destination,
+          valueToSend,
+          reason
+        );
 
         if (fees) {
           return fees;
@@ -270,6 +279,72 @@ export class GenericWallet implements IWallet {
         ](this.config, driverDescription.config);
 
         let tx = await driver.send(transactionProposal);
+        return tx;
+      } catch (e) {
+        error = e;
+        if (process.env.NODE_ENV !== 'production') {
+          console.log('COMPLETE ERROR', e);
+        }
+        continue;
+      }
+    }
+
+    if (error) {
+      throw error;
+    }
+    return null;
+  };
+
+  stake = async (transactionProposal: GenericTxProposal): Promise<any> => {
+    // Loop through the drivers to get the fees
+
+    let drivers =
+      CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]?.transaction ?? [];
+
+    let error = null;
+    for (let i = 0; i < drivers.length; i++) {
+      // Try all drivers in case one of them fails
+      const driverDescription: any = drivers[i];
+      try {
+        error = null;
+        var driver = new this.TRANSACTION_DRIVER_NAMESPACE[
+          driverDescription.driver
+        ](this.config, driverDescription.config);
+
+        let tx = await driver.stake(transactionProposal);
+        return tx;
+      } catch (e) {
+        error = e;
+        if (process.env.NODE_ENV !== 'production') {
+          console.log('COMPLETE ERROR', e);
+        }
+        continue;
+      }
+    }
+
+    if (error) {
+      throw error;
+    }
+    return null;
+  };
+
+  unstake = async (transactionProposal: GenericTxProposal): Promise<any> => {
+    // Loop through the drivers to get the fees
+
+    let drivers =
+      CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]?.transaction ?? [];
+
+    let error = null;
+    for (let i = 0; i < drivers.length; i++) {
+      // Try all drivers in case one of them fails
+      const driverDescription: any = drivers[i];
+      try {
+        error = null;
+        var driver = new this.TRANSACTION_DRIVER_NAMESPACE[
+          driverDescription.driver
+        ](this.config, driverDescription.config);
+
+        let tx = await driver.unstake(transactionProposal);
         return tx;
       } catch (e) {
         error = e;

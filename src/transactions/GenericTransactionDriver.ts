@@ -43,6 +43,17 @@ export class GenericTransactionDriver {
   send = async (_transaction: GenericTxProposal): Promise<any> => {
     return null;
   };
+
+  stake = async (_transaction: GenericTxProposal): Promise<any> => {
+    console.log('Staking not implemented on this blockchain');
+    return null;
+  };
+
+  unstake = async (_transaction: GenericTxProposal): Promise<any> => {
+    console.log('Unstaking not implemented on this blockchain');
+    return null;
+  };
+
   sendRaw = async (_transaction: any): Promise<any> => {
     return null;
   };
