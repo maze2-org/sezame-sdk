@@ -49,6 +49,9 @@ export class AVN_Driver extends GenericTransactionDriver {
       switch (status) {
         case 'Processed':
           return 'success';
+        case 'Errored':
+        case 'Pending and Lost':
+          return 'failed';
         default:
           return 'pending';
       }
