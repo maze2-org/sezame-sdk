@@ -45,12 +45,6 @@ export class AVN_Driver extends GenericTransactionDriver {
       amountToStake
     );
 
-    console.log(
-      'STACKINGGGGGGGGGGGGGGGGGGGG',
-      this.config.avn_relayer,
-      amountToStake,
-      requestId
-    );
     return requestId;
   };
 
@@ -69,6 +63,36 @@ export class AVN_Driver extends GenericTransactionDriver {
     return requestId;
   };
 
+  swap = async (
+    transaction: GenericTxProposal,
+    swapType: 'lifting' | 'lowering' | 'swaping'
+  ): Promise<string> => {
+    const data: any = transaction.getData();
+    const api = await this.initApi();
+
+    switch (swapType) {
+      case 'lifting':
+        const ethereumTransactionHashForLift = data.proposal.to;
+        return await api.send.confirmTokenLift(
+          this.config.avn_relayer,
+          ethereumTransactionHashForLift
+        );
+      case 'lowering':
+        const recipient = data.proposal.to;
+        const lowerAmount = new BigNumber(data.proposal.valueToSend)
+          .multipliedBy(AVT_UNIT)
+          .toString();
+        return await api.send.lowerToken(
+          this.config.avn_relayer,
+          recipient,
+          this.config.token_address,
+          lowerAmount
+        );
+      default:
+        throw new Error(`The ${swapType} is not supported by this blockchain`);
+    }
+  };
+
   getTransactionsUrl = (address: string) => {
     return this.config.explorer_url
       ? this.config.explorer_url.replace('{address}', address)
@@ -81,18 +105,9 @@ export class AVN_Driver extends GenericTransactionDriver {
   ): Promise<'pending' | 'success' | 'failed' | null> => {
     try {
       const api = await this.initApi();
-      const status = await api.poll.requestState(txId);
-      console.log(
-        'GOTSTATUSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
-        status,
-        txId
-      );
-      console.log(
-        'ACCOUNT_STATUSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
-        await api.query.getAccountInfo(_address)
-      );
+      const result = await api.poll.requestState(txId);
 
-      switch (status) {
+      switch (result.status) {
         case 'Processed':
           return 'success';
         case 'Errored':

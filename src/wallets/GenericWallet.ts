@@ -195,7 +195,6 @@ export class GenericWallet implements IWallet {
           driver.definePrivateKey(this.getPrivateKey());
         }
         let balance = await driver.getBalance(this.getAddress());
-        console.log('GETTING_BALANCEEEEEEEEEEEEEEEEEEEEEEEEE', balance);
         if (balance) {
           return balance;
         }
@@ -345,6 +344,42 @@ export class GenericWallet implements IWallet {
         ](this.config, driverDescription.config);
 
         let tx = await driver.unstake(transactionProposal);
+        return tx;
+      } catch (e) {
+        error = e;
+        if (process.env.NODE_ENV !== 'production') {
+          console.log('COMPLETE ERROR', e);
+        }
+        continue;
+      }
+    }
+
+    if (error) {
+      throw error;
+    }
+    return null;
+  };
+
+  swap = async (
+    transactionProposal: GenericTxProposal,
+    swapType: 'lifting' | 'lowering' | 'swaping'
+  ): Promise<any> => {
+    // Loop through the drivers to get the fees
+
+    let drivers =
+      CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]?.transaction ?? [];
+
+    let error = null;
+    for (let i = 0; i < drivers.length; i++) {
+      // Try all drivers in case one of them fails
+      const driverDescription: any = drivers[i];
+      try {
+        error = null;
+        var driver = new this.TRANSACTION_DRIVER_NAMESPACE[
+          driverDescription.driver
+        ](this.config, driverDescription.config);
+
+        let tx = await driver.swap(transactionProposal, swapType);
         return tx;
       } catch (e) {
         error = e;
