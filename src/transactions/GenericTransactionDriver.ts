@@ -53,6 +53,11 @@ export class GenericTransactionDriver {
     console.log('Unstaking not implemented on this blockchain');
     return null;
   };
+  
+  getStakingStats = async (): Promise<any> => {
+    console.log('getStakingStats function not implemented on this blockchain');
+    return null;
+  };
 
   sendRaw = async (_transaction: any): Promise<any> => {
     return null;

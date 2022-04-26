@@ -327,6 +327,39 @@ export class GenericWallet implements IWallet {
     return null;
   };
 
+  getStakingStats = async (): Promise<any> => {
+    // Loop through the drivers to get the fees
+
+    let drivers =
+      CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]?.transaction ?? [];
+
+    let error = null;
+    for (let i = 0; i < drivers.length; i++) {
+      // Try all drivers in case one of them fails
+      const driverDescription: any = drivers[i];
+      try {
+        error = null;
+        var driver = new this.TRANSACTION_DRIVER_NAMESPACE[
+          driverDescription.driver
+        ](this.config, driverDescription.config);
+
+        let stats = await driver.getStakingStats();
+        return stats;
+      } catch (e) {
+        error = e;
+        if (process.env.NODE_ENV !== 'production') {
+          console.log('COMPLETE ERROR', e);
+        }
+        continue;
+      }
+    }
+
+    if (error) {
+      throw error;
+    }
+    return null;
+  };
+
   unstake = async (transactionProposal: GenericTxProposal): Promise<any> => {
     // Loop through the drivers to get the fees
 

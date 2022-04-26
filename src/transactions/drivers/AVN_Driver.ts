@@ -93,6 +93,11 @@ export class AVN_Driver extends GenericTransactionDriver {
     }
   };
 
+  getStakingStats = async () => {
+    const api = await this.initApi();
+    return await api.query.getStakingStats();
+  };
+
   getTransactionsUrl = (address: string) => {
     return this.config.explorer_url
       ? this.config.explorer_url.replace('{address}', address)
@@ -111,6 +116,7 @@ export class AVN_Driver extends GenericTransactionDriver {
         case 'Processed':
           return 'success';
         case 'Errored':
+        case 'Rejected':
         case 'Pending and Lost':
           return 'failed';
         default:
