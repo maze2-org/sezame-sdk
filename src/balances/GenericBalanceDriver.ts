@@ -11,7 +11,7 @@ export class GenericBalanceDriver implements IBalanceDriver {
     this.currency = assetConfig.symbol;
   }
   getBalance = async (_address: string) => {
-    return new GenericBalance(this.currency, 0, 0);
+    return new GenericBalance(this.currency, 0, 0, 0, 0, 0, 0);
   };
   getBalanceEndpoint() {
     const endpoint = this.config.endpoint;

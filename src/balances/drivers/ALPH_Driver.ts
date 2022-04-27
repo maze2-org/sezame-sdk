@@ -22,7 +22,13 @@ export class ALPH_Driver extends GenericBalanceDriver {
       new BigNumber(addressDetailsResp.data.balance)
         .dividedBy(ALPH_UNIT)
         .toNumber(),
-      0
+      0,
+      0,
+      0,
+      0,
+      new BigNumber(addressDetailsResp.data.balance)
+        .dividedBy(ALPH_UNIT)
+        .toNumber()
     );
   };
 

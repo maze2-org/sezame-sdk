@@ -29,7 +29,11 @@ export class ETH_Driver extends WEB3_Driver {
     return new GenericBalance(
       this.currency,
       Number(weiToETH(confirmedBalance.toString())),
-      Number(weiToETH(unconfirmedBalance.toString()))
+      Number(weiToETH(unconfirmedBalance.toString())),
+      0,
+      0,
+      0,
+      Number(weiToETH(confirmedBalance.toString()))
     );
   };
 }

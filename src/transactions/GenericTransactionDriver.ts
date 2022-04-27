@@ -1,5 +1,6 @@
 import { IWalletConfig } from '..';
 import { GenericTxProposal } from '../fees/GenericTxProposal';
+import { StakingProperties } from '../wallets/types/StakingProperties';
 
 export class GenericTransactionDriver {
   currency: string;
@@ -53,8 +54,15 @@ export class GenericTransactionDriver {
     console.log('Unstaking not implemented on this blockchain');
     return null;
   };
-  
-  getStakingStats = async (): Promise<any> => {
+
+  withdrawUnlocked = async (): Promise<any> => {
+    console.log('withdrawUnlocked not implemented on this blockchain');
+    return null;
+  };
+
+  getStakingProperties = async (
+    _address: string
+  ): Promise<StakingProperties | null> => {
     console.log('getStakingStats function not implemented on this blockchain');
     return null;
   };

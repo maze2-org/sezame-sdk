@@ -211,7 +211,7 @@ export class GenericWallet implements IWallet {
         'Unable to retrieve balance for a contract without a currency symbol!'
       );
     }
-    return new GenericBalance(currencySymbol, 0, 0, 0);
+    return new GenericBalance(currencySymbol, 0, 0, 0, 0, 0, 0);
   };
   // This is a send currency transaction
   getTxSendProposals = async (
@@ -327,7 +327,7 @@ export class GenericWallet implements IWallet {
     return null;
   };
 
-  getStakingStats = async (): Promise<any> => {
+  getStakingProperties = async (address: string): Promise<any> => {
     // Loop through the drivers to get the fees
 
     let drivers =
@@ -343,7 +343,7 @@ export class GenericWallet implements IWallet {
           driverDescription.driver
         ](this.config, driverDescription.config);
 
-        let stats = await driver.getStakingStats();
+        let stats = await driver.getStakingProperties(address);
         return stats;
       } catch (e) {
         error = e;
@@ -377,6 +377,39 @@ export class GenericWallet implements IWallet {
         ](this.config, driverDescription.config);
 
         let tx = await driver.unstake(transactionProposal);
+        return tx;
+      } catch (e) {
+        error = e;
+        if (process.env.NODE_ENV !== 'production') {
+          console.log('COMPLETE ERROR', e);
+        }
+        continue;
+      }
+    }
+
+    if (error) {
+      throw error;
+    }
+    return null;
+  };
+
+  withdrawUnlocked = async (): Promise<any> => {
+    // Loop through the drivers to get the fees
+
+    let drivers =
+      CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]?.transaction ?? [];
+
+    let error = null;
+    for (let i = 0; i < drivers.length; i++) {
+      // Try all drivers in case one of them fails
+      const driverDescription: any = drivers[i];
+      try {
+        error = null;
+        var driver = new this.TRANSACTION_DRIVER_NAMESPACE[
+          driverDescription.driver
+        ](this.config, driverDescription.config);
+
+        let tx = await driver.withdrawUnlocked();
         return tx;
       } catch (e) {
         error = e;

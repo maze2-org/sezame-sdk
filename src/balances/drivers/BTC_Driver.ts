@@ -37,7 +37,11 @@ export class BTC_Driver extends GenericBalanceDriver {
           return new GenericBalance(
             this.currency,
             satoshi_to_btc(confirmedBalance),
-            satoshi_to_btc(unconfirmedBalance)
+            satoshi_to_btc(unconfirmedBalance),
+            0,
+            0,
+            0,
+            satoshi_to_btc(confirmedBalance)
           );
         }
       } catch (e) {}

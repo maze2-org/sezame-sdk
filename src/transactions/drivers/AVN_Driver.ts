@@ -5,6 +5,7 @@ import { GenericTxProposal } from '../../fees/GenericTxProposal';
 // import axios from 'axios';
 import BigNumber from 'bignumber.js';
 import { AVT_UNIT } from '../../constants';
+import { StakingProperties } from '../../wallets/types/StakingProperties';
 
 const AvnApi = require('avn-api');
 
@@ -63,6 +64,13 @@ export class AVN_Driver extends GenericTransactionDriver {
     return requestId;
   };
 
+  withdrawUnlocked = async (): Promise<string> => {
+    const api = await this.initApi();
+
+    const requestId = await api.send.withdrawUnlocked(this.config.avn_relayer);
+    return requestId;
+  };
+
   swap = async (
     transaction: GenericTxProposal,
     swapType: 'lifting' | 'lowering' | 'swaping'
@@ -93,9 +101,25 @@ export class AVN_Driver extends GenericTransactionDriver {
     }
   };
 
-  getStakingStats = async () => {
+  getStakingProperties = async (
+    address: string
+  ): Promise<StakingProperties> => {
     const api = await this.initApi();
-    return await api.query.getStakingStats();
+    const stats = await api.query.getStakingStats();
+    const status = await api.query.getStakingStatus(address);
+    console.log({ stats, status });
+    const properties: StakingProperties = {
+      minStaking:
+        status !== 'isStaking'
+          ? parseFloat(
+              new BigNumber(stats.minUserBond).dividedBy(AVT_UNIT).toString()
+            )
+          : 0.1,
+
+      maxStaking: null,
+    };
+
+    return properties;
   };
 
   getTransactionsUrl = (address: string) => {

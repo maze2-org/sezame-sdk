@@ -23,7 +23,10 @@ export class AVN_Driver extends GenericBalanceDriver {
         this.currency,
         new BigNumber(balance.totalBalance).dividedBy(AVT_UNIT).toNumber(),
         0,
-        new BigNumber(balance.stakedBalance).dividedBy(AVT_UNIT).toNumber()
+        new BigNumber(balance.stakedBalance).dividedBy(AVT_UNIT).toNumber(),
+        new BigNumber(balance.unlockedBalance).dividedBy(AVT_UNIT).toNumber(),
+        new BigNumber(balance.unstakedBalance).dividedBy(AVT_UNIT).toNumber(),
+        new BigNumber(balance.freeBalance).dividedBy(AVT_UNIT).toNumber()
       );
     } catch (err) {
       console.error(err);
