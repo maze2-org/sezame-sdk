@@ -19,3 +19,4 @@ export { Fees };
 export { Transactions };
 export { CurrencyFunctionsfrom };
 export { getAllCoins, getCoins } from './market/getCoins';
+export { checkAddress } from './utils/checkAddress';
