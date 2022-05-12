@@ -4,8 +4,12 @@ import * as Balances from './balances';
 import * as Fees from './fees';
 import * as Transactions from './transactions';
 import * as CurrencyFunctionsfrom from './currencyFunctions';
+import BigNumber from 'bignumber.js';
 
 require('dotenv').config();
+
+// Set the big number maximum size
+BigNumber.set({ EXPONENTIAL_AT: 100 });
 
 export { Currency } from './currencies';
 export { Chains } from './chains';
