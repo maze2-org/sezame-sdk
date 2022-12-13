@@ -1,5 +1,5 @@
 import { GenericBalanceDriver } from '../GenericBalanceDriver';
-import { ExplorerClient } from 'alephium-js';
+import { ExplorerClient } from '@alephium/sdk';
 import { GenericBalance } from '..';
 import BigNumber from 'bignumber.js';
 import { ALPH_UNIT } from '../../constants';

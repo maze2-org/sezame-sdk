@@ -1,8 +1,8 @@
 import { GenericTransactionDriver } from '../GenericTransactionDriver';
 import { GenericTxProposal } from '../../fees/GenericTxProposal';
 import { ALPH_UNIT } from '../../constants';
-import { CliqueClient, ExplorerClient } from 'alephium-js';
-import { Transaction } from 'alephium-js/dist/api/api-explorer';
+import { CliqueClient, ExplorerClient } from '@alephium/sdk';
+import { Transaction } from '@alephium/sdk/api/explorer';
 import BigNumber from 'bignumber.js';
 
 type FetchResponse = {
@@ -36,12 +36,14 @@ export class ALPH_Driver extends GenericTransactionDriver {
   calAmountDelta = (t: Transaction, id: string): BigNumber => {
     if (t.inputs && t.outputs) {
       const inputAmount = t.inputs.reduce<bigint>((acc, input) => {
-        return input.amount && input.address === id
-          ? acc + BigInt(input.amount)
+        return input.attoAlphAmount && input.address === id
+          ? acc + BigInt(input.attoAlphAmount)
           : acc;
       }, BigInt('0'));
       const outputAmount = t.outputs.reduce<bigint>((acc, output) => {
-        return output.address === id ? acc + BigInt(output.amount) : acc;
+        return output.address === id
+          ? acc + BigInt(output.attoAlphAmount)
+          : acc;
       }, BigInt('0'));
 
       return new BigNumber(`${outputAmount - inputAmount}`);

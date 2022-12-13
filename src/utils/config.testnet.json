@@ -49,8 +49,8 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "explorer": "https://textnet-explorer-backend.sesamewallet.io",
-            "node": "https://textnet-node.sesamewallet.io"
+            "explorer": "https://alephium.dev.oniabsis.com",
+            "node": "https://alephium.dev.oniabsis.com"
           }
         }
       ],
@@ -58,8 +58,8 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "explorer": "https://textnet-explorer-backend.sesamewallet.io",
-            "node": "https://textnet-node.sesamewallet.io"
+            "explorer": "https://alephium.dev.oniabsis.com",
+            "node": "https://alephium.dev.oniabsis.com"
           }
         }
       ],
@@ -67,8 +67,8 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "explorer": "https://textnet-explorer-backend.sesamewallet.io",
-            "node": "https://textnet-node.sesamewallet.io"
+            "explorer": "https://alephium.dev.oniabsis.com",
+            "node": "https://alephium.dev.oniabsis.com"
           }
         }
       ],
@@ -76,9 +76,9 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "explorer": "https://textnet-explorer-backend.sesamewallet.io",
-            "node": "https://textnet-node.sesamewallet.io",
-            "explorer_url": "https://testnet.alephium.org/#/addresses/{address}"
+            "explorer": "https://alephium.dev.oniabsis.com",
+            "node": "https://alephium.dev.oniabsis.com",
+            "explorer_url": "https://explorer_alephium.dev.oniabsis.com/#/addresses/{address}"
           }
         }
       ]

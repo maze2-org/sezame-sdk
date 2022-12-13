@@ -199,6 +199,13 @@ export class GenericWallet implements IWallet {
           return balance;
         }
       } catch (e) {
+        console.log(
+          '[SDK] Unable to retrieve balance ',
+          {
+            symbol: this.getBlockchainSymbol(),
+          },
+          e
+        );
         if (process.env.NODE_ENV !== 'production') {
           console.log(e);
         }

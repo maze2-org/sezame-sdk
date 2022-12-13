@@ -79,7 +79,7 @@
     "@polkadot/keyring": "5.9.2",
     "@polkadot/util": "5.9.2",
     "@polkadot/util-crypto": "5.9.2",
-    "alephium-js": "1.1.1",
+    "@alephium/sdk": "0.2.2",
     "avn-api": "0.6.0",
     "axios": "0.21.1",
     "bignumber": "^1.1.0",

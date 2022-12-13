@@ -4,7 +4,7 @@ import { Keyring } from '@polkadot/keyring';
 import { u8aToHex } from '@polkadot/util';
 import { WalletDescription } from '../../utils/types/WalletDescription';
 import { cryptoWaitReady, mnemonicToMiniSecret } from '@polkadot/util-crypto';
-import { walletImport } from 'alephium-js';
+import { walletImport } from '@alephium/sdk';
 
 // import { CONFIG } from '../../utils/config';
 

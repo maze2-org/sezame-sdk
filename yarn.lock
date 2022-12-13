@@ -2,6 +2,20 @@
 # yarn lockfile v1
 
 
+"@alephium/sdk@0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@alephium/sdk/-/sdk-0.2.2.tgz#766614720263b3aea3326bdec39d8d8a19c7dd2e"
+  integrity sha512-qvnbPI4ExwX8LfBUQh0kuaUfpR0XJLoSkKKTpeVxySu45o/TAlVw4Eu6ZJqoxtR6ledQ2uUmjD2Y2D5ikXsxfA==
+  dependencies:
+    base-x "^4.0.0"
+    bcfg "~0.1.6"
+    bip32 "^2.0.6"
+    bip39 "^3.0.4"
+    blakejs "^1.1.1"
+    cross-fetch "^3.1.5"
+    crypto-js "^4.1.1"
+    elliptic "^6.5.4"
+
 "@ampproject/remapping@^2.0.0":
   version "2.1.1"
   resolved "https://registry.npmjs.org/@ampproject/remapping/-/remapping-2.1.1.tgz"
@@ -2166,20 +2180,6 @@ ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.3, ajv@^6.12.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-alephium-js@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/alephium-js/-/alephium-js-1.1.1.tgz#f6691e3cda140ec9b90b346547cb007022be5a26"
-  integrity sha512-IEKi5127+VnjEZ0Jaedqcn5sb0O0j9goUJnZ6BEmEXk1gBl29Af8Y6j28c+l5S05cAGVF4fGtCd1x+qfA/mzJg==
-  dependencies:
-    base-x "^3.0.8"
-    bcfg "~0.1.6"
-    bip32 "^2.0.6"
-    bip39 "^3.0.4"
-    blakejs "^1.1.1"
-    browserify-sha3 "^0.0.5"
-    cross-fetch "^3.1.5"
-    elliptic "^6.5.4"
-
 ansi-colors@^4.1.1:
   version "4.1.1"
   resolved "https://registry.npmjs.org/ansi-colors/-/ansi-colors-4.1.1.tgz"
@@ -2643,6 +2643,11 @@ base-x@^3.0.2, base-x@^3.0.8:
   dependencies:
     safe-buffer "^5.0.1"
 
+base-x@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/base-x/-/base-x-4.0.0.tgz#d0e3b7753450c73f8ad2389b5c018a4af7b2224a"
+  integrity sha512-FuwxlW4H5kh37X/oW59pwTzzTKRzfrrQwhmyspRM7swOEZcHtDZSCt45U6oKgtuFE+WYPblePMVIPR4RZrh/hw==
+
 base58-js@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/base58-js/-/base58-js-1.0.0.tgz#08b6d745d811103114cc150f7da517b3c02a24ec"
@@ -2947,14 +2952,6 @@ browserify-rsa@^4.0.0, browserify-rsa@^4.0.1:
   dependencies:
     bn.js "^5.0.0"
     randombytes "^2.0.1"
-
-browserify-sha3@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.npmjs.org/browserify-sha3/-/browserify-sha3-0.0.5.tgz"
-  integrity sha512-P3F2bFpWG8aC+1FUeMzpeXDLCAZKHYOh9l+Yg6gVgNIU4Bp0/Vkvm2wEwXgDBWlKoobOIpyQbtkPfcJ+LSKNCA==
-  dependencies:
-    js-sha3 "^0.8.0"
-    safe-buffer "^5.2.0"
 
 browserify-sign@^4.0.0:
   version "4.2.1"
@@ -3720,6 +3717,11 @@ crypto-browserify@3.12.0, crypto-browserify@^3.11.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
     randomfill "^1.0.3"
+
+crypto-js@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.1.1.tgz#9e485bcf03521041bd85844786b83fb7619736cf"
+  integrity sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==
 
 css-declaration-sorter@^6.0.3:
   version "6.1.4"
