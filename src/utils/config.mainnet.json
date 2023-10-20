@@ -172,8 +172,8 @@
         {
           "driver": "ETH_Driver",
           "config": {
-            "endpoint": "https://eth1.trezor.io/api/v2/address/",
-            "token_endpoint": "https://api.coingrig.com/web3/eth/"
+            "endpoint": "https://node-ethereum.sezame.app",
+            "token_endpoint": "https://node-ethereum.sezame.app"
           }
         }
       ],
@@ -181,8 +181,8 @@
         {
           "driver": "ETH_Driver",
           "config": {
-            "endpoint": "https://api.coingrig.com/gas/eth/",
-            "proposal_endpoint": "https://api.coingrig.com/web3/eth/"
+            "endpoint": "https://node-ethereum.sezame.app",
+            "proposal_endpoint": "https://node-ethereum.sezame.app"
           }
         }
       ],
@@ -190,7 +190,7 @@
         {
           "driver": "ETH_Driver",
           "config": {
-            "endpoint": "https://api.coingrig.com/web3/eth/"
+            "endpoint": "https://node-ethereum.sezame.app"
           }
         }
       ],

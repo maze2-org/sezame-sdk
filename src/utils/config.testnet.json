@@ -160,8 +160,8 @@
         {
           "driver": "ETH_Driver",
           "config": {
-            "endpoint": "https://api.coingrig.com/teth/address/",
-            "token_endpoint": "https://api.coingrig.com/web3test/eth/"
+            "endpoint": "https://node-ethereum-testnet.sezame.app",
+            "token_endpoint": "https://node-ethereum-testnet.sezame.app"
           }
         }
       ],
@@ -169,8 +169,8 @@
         {
           "driver": "ETH_Driver",
           "config": {
-            "endpoint": "https://api.coingrig.com/gas/eth/",
-            "proposal_endpoint": "https://api.coingrig.com/web3test/eth/"
+            "endpoint": "https://node-ethereum-testnet.sezame.app",
+            "proposal_endpoint": "https://node-ethereum-testnet.sezame.app"
           }
         }
       ],
@@ -178,7 +178,7 @@
         {
           "driver": "ETH_Driver",
           "config": {
-            "endpoint": "https://api.coingrig.com/web3test/eth/"
+            "endpoint": "https://node-ethereum-testnet.sezame.app"
           }
         }
       ],
@@ -186,9 +186,9 @@
         {
           "driver": "ETH_Driver",
           "config": {
-            "api_transction_url": "https://api-ropsten.etherscan.io/api?module=account&action=txlist&address={address}&sort=desc&apiKey=TE6XQM4ITIIE9P34E9N59AWK6Z7T7THSCC",
-            "explorer_url": "https://ropsten.etherscan.io/address/{address}",
-            "transaction_status": "https://api-ropsten.etherscan.io/api?module=transaction&action=gettxreceiptstatus&txhash={txHash}&apikey=TE6XQM4ITIIE9P34E9N59AWK6Z7T7THSCC"
+            "api_transction_url": "https://api-goerli.etherscan.io/api?module=account&action=txlist&address={address}&sort=desc&apiKey=TE6XQM4ITIIE9P34E9N59AWK6Z7T7THSCC",
+            "explorer_url": "https://goerli.etherscan.io/address/{address}",
+            "transaction_status": "https://api-goerli.etherscan.io/api?module=transaction&action=gettxreceiptstatus&txhash={txHash}&apikey=TE6XQM4ITIIE9P34E9N59AWK6Z7T7THSCC"
           }
         }
       ]
