@@ -24,12 +24,16 @@ export class ETH_Driver extends WEB3_Driver {
           },
         })
         .then(result => {
-          console.log(
-            'GOT RESULT FOR TRANSACTION STATUS',
-            apiUrl,
-            `'${result.data.result?.status}'`
-          );
-          resolve(result.data.result?.status === '1' ? 'success' : 'pending');
+          switch (result.data.result?.status) {
+            case '0':
+              resolve('failed');
+              break;
+            case '1':
+              resolve('success');
+              break;
+            default:
+              resolve('pending');
+          }
         })
         .catch(err => {
           console.error(err);

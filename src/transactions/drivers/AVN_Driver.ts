@@ -107,7 +107,6 @@ export class AVN_Driver extends GenericTransactionDriver {
     const api = await this.initApi();
     const stats = await api.query.getStakingStats();
     const status = await api.query.getStakingStatus(address);
-    console.log({ stats, status });
     const properties: StakingProperties = {
       minStaking:
         status !== 'isStaking'

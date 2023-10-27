@@ -88,7 +88,7 @@
         {
           "driver": "BSC_Driver",
           "config": {
-            "endpoint": "https://bsc-dataseed.binance.org/"
+            "endpoint": "https://node-bsc.sezame.app/"
           }
         }
       ],
@@ -96,8 +96,8 @@
         {
           "driver": "BSC_Driver",
           "config": {
-            "endpoint": "https://api.coingrig.com/gas/bsc/",
-            "proposal_endpoint": "https://bsc-dataseed.binance.org/"
+            "endpoint": "https://node-bsc.sezame.app/",
+            "proposal_endpoint": "https://node-bsc.sezame.app/"
           }
         }
       ],
@@ -105,7 +105,17 @@
         {
           "driver": "BSC_Driver",
           "config": {
-            "endpoint": "https://bsc-dataseed.binance.org/"
+            "endpoint": "https://node-bsc.sezame.app/"
+          }
+        }
+      ],
+      "transactions_history": [
+        {
+          "driver": "BSC_Driver",
+          "config": {
+            "explorer_url": "https://bscscan.com/address/{address}",
+            "api_transction_url": "https://api-bsc.sezame.app/api?module=account&action=txlist&address={address}&sort=desc",
+            "transaction_status": "https://api-bsc.sezame.app/api?module=transaction&action=gettxreceiptstatus&txhash={txHash}"
           }
         }
       ]
@@ -198,9 +208,9 @@
         {
           "driver": "ETH_Driver",
           "config": {
-            "api_transction_url": "https://api.etherscan.io/api?module=account&action=txlist&address={address}&sort=desc&apiKey=TE6XQM4ITIIE9P34E9N59AWK6Z7T7THSCC",
             "explorer_url": "https://etherscan.io/address/{address}",
-            "transaction_status": "https://api.etherscan.io/api?module=transaction&action=gettxreceiptstatus&txhash={txHash}&apikey=TE6XQM4ITIIE9P34E9N59AWK6Z7T7THSCC"
+            "api_transction_url": "https://api-ethereum.sezame.app/api?module=account&action=txlist&address={address}&sort=desc",
+            "transaction_status": "https://api-ethereum.sezame.app/api?module=transaction&action=gettxreceiptstatus&txhash={txHash}"
           }
         }
       ]
@@ -210,7 +220,7 @@
         {
           "driver": "POLYGON_Driver",
           "config": {
-            "endpoint": "https://polygon-rpc.com/"
+            "endpoint": "https://node-polygon.sezame.app/"
           }
         }
       ],
@@ -218,8 +228,8 @@
         {
           "driver": "POLYGON_Driver",
           "config": {
-            "endpoint": "https://api.coingrig.com/gas/polygon/",
-            "proposal_endpoint": "https://polygon-rpc.com/"
+            "endpoint": "https://node-polygon.sezame.app",
+            "proposal_endpoint": "https://node-polygon.sezame.app/"
           }
         }
       ],
@@ -227,7 +237,17 @@
         {
           "driver": "POLYGON_Driver",
           "config": {
-            "endpoint": "https://polygon-rpc.com/"
+            "endpoint": "https://node-polygon.sezame.app/"
+          }
+        }
+      ],
+      "transactions_history": [
+        {
+          "driver": "POLYGON_Driver",
+          "config": {
+            "explorer_url": "https://polygonscan.com/address/{address}",
+            "api_transction_url": "https://api-polygon.sezame.app/api?module=account&action=txlist&address={address}&sort=desc",
+            "transaction_status": "https://api-polygon.sezame.app/api?module=transaction&action=gettxreceiptstatus&txhash={txHash}"
           }
         }
       ]

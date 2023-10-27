@@ -56,7 +56,6 @@ describe('Balances', () => {
     let balance = await driver.getBalance(from);
     expect(typeof balance).toBe('object');
     expect(balance.getValue()).toBeGreaterThan(0);
-    // console.log('ETH', balance.getValue());
   });
 
   it('can_get_bsc_balance', async () => {
@@ -68,6 +67,5 @@ describe('Balances', () => {
     let balance = await driver.getBalance(from);
     expect(typeof balance).toBe('object');
     expect(balance.getValue()).toBeGreaterThan(0);
-    console.log('BNB', balance.getValue());
   });
 });

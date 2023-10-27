@@ -104,7 +104,6 @@ describe('BitcoinWallet', () => {
     let proposals = await w.getTxSendProposals(to, 0.00002);
     expect(typeof proposals).toBe('object');
     let result = await w.postTxSend(proposals.regular);
-    console.log('result', result);
     expect(result.length).toBeGreaterThan(0);
   });
 });

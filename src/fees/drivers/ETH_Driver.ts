@@ -17,7 +17,6 @@ export class ETH_Driver extends WEB3_Driver {
     prices[FEE_TYPES.REGULAR] = parseFloat(gasPrice) / 1e9;
     prices[FEE_TYPES.PRIORITY] = parseFloat(gasPrice) / 1e9;
 
-    console.log(prices);
     return prices;
   };
 }
