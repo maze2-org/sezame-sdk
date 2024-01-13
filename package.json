@@ -75,11 +75,12 @@
     "url": "git+https://github.com/maze2-org/sezame-sdk.git"
   },
   "dependencies": {
+    "@alephium/sdk": "0.2.2",
     "@metamask/eth-sig-util": "^4.0.0",
     "@polkadot/keyring": "5.9.2",
     "@polkadot/util": "5.9.2",
     "@polkadot/util-crypto": "5.9.2",
-    "@alephium/sdk": "0.2.2",
+    "assert": "^2.1.0",
     "avn-api": "0.8.2",
     "axios": "0.21.1",
     "bignumber": "^1.1.0",
@@ -95,6 +96,7 @@
     "ethereumjs-wallet": "1.0.1",
     "hdkey": "2.0.1",
     "isomorphic-fetch": "^3.0.0",
+    "react-native-quick-crypto": "^0.6.1",
     "web3": "1.5.2"
   },
   "jest": {

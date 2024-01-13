@@ -49,8 +49,8 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "explorer": "https://alephium.dev.oniabsis.com",
-            "node": "https://alephium.dev.oniabsis.com"
+            "explorer": "https://explorer-backend-alephium-testnet.sezame.app",
+            "node": "https://node-alephium-testnet.sezame.app"
           }
         }
       ],
@@ -58,8 +58,8 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "explorer": "https://alephium.dev.oniabsis.com",
-            "node": "https://alephium.dev.oniabsis.com"
+            "explorer": "https://explorer-backend-alephium-testnet.sezame.app",
+            "node": "https://node-alephium-testnet.sezame.app"
           }
         }
       ],
@@ -67,8 +67,8 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "explorer": "https://alephium.dev.oniabsis.com",
-            "node": "https://alephium.dev.oniabsis.com"
+            "explorer": "https://explorer-backend-alephium-testnet.sezame.app",
+            "node": "https://node-alephium-testnet.sezame.app"
           }
         }
       ],
@@ -76,9 +76,9 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "explorer": "https://alephium.dev.oniabsis.com",
-            "node": "https://alephium.dev.oniabsis.com",
-            "explorer_url": "https://explorer_alephium.dev.oniabsis.com/#/addresses/{address}"
+            "explorer": "https://explorer-backend-alephium-testnet.sezame.app",
+            "node": "https://node-alephium-testnet.sezame.app",
+            "explorer_url": "https://explorer-alephium-testnet.sezame.app/#/addresses/{address}"
           }
         }
       ]

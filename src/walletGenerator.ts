@@ -39,7 +39,8 @@ export class WalletGenerator {
    * @memberof WalletGenerator
    */
   static generateMnemonic(size = 128): string {
-    return generateMnemonic(size);
+    const mnemonic = generateMnemonic(size);
+    return mnemonic;
   }
 
   /**
