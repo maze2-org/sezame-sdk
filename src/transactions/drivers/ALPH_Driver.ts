@@ -1,36 +1,91 @@
-import { GenericTransactionDriver } from '../GenericTransactionDriver';
-import { GenericTxProposal } from '../../fees/GenericTxProposal';
-import { ALPH_UNIT } from '../../constants';
-import { CliqueClient, ExplorerClient } from '@alephium/sdk';
-import { Transaction } from '@alephium/sdk/api/explorer';
 import BigNumber from 'bignumber.js';
+import { Client } from '../../utils/alephium/api/client';
+import { GenericTransactionDriver } from '../GenericTransactionDriver';
+import { Transaction } from '@alephium/web3/dist/src/api/api-explorer';
+import { ALPH_UNIT } from '../../constants';
+import { GenericTxProposal } from '../../fees/GenericTxProposal';
+import { transactionSign } from '@alephium/web3';
 
-type FetchResponse = {
-  error: any;
-};
+type AlphConfig = any;
 
 export class ALPH_Driver extends GenericTransactionDriver {
+  config: AlphConfig;
+
   createClient = async () => {
-    const cliqueClient = new CliqueClient({
-      baseUrl: this.config.node,
-    });
-
-    const explorerClient = new ExplorerClient({
-      baseUrl: this.config.explorer,
-    });
-
-    await cliqueClient.init(false);
-
-    return {
-      clique: cliqueClient,
-      explorer: explorerClient,
-    };
+    return new Client({
+      explorerApiHost: this.config.explorer,
+      explorerUrl: this.config.explorer_url,
+      networkId: this.config.network_id,
+      nodeHost: this.config.node,
+    })
   };
+
+  getAddressGroup = async (address: string) => {
+    const client = await this.createClient();
+    return (await client.node.addresses.getAddressesAddressGroup(address)).group;
+  }
 
   getTransactionsUrl = (address: string) => {
     return this.config.explorer_url
       ? this.config.explorer_url.replace('{address}', address)
       : '';
+  };
+
+  getTransactionStatus = async (
+    _address: string,
+    txId: string
+  ): Promise<'pending' | 'success' | 'failed' | null> => {
+    const client = await this.createClient();
+    const status = await client.node.transactions.getTransactionsStatus({ txId })
+
+    if (status?.type) {
+      switch (status.type.toLocaleLowerCase()) {
+        case 'confirmed':
+          return 'success';
+        case 'refused':
+          return 'failed';
+        default:
+          return 'pending';
+      }
+    }
+    return null;
+  };
+
+  getTransactions = async (address: string): Promise<any[]> => {
+    const client = await this.createClient();
+
+    return new Promise((resolve, reject) => {
+      client.explorer.addresses.getAddressesAddressTransactions(address)
+        .then(txs => {
+
+          const history = txs.map(tx => {
+            const amountDelta = this.calAmountDelta(tx, address);
+            const isOut = amountDelta < new BigNumber('0');
+            const IOAddressesList = isOut ? tx.outputs : tx.inputs;
+            const to = isOut
+              ? this.renderIOAccountList(address, IOAddressesList)
+              : address;
+            const from = isOut
+              ? address
+              : this.renderIOAccountList(address, IOAddressesList);
+            return {
+              out: isOut,
+              date: new Date(tx.timestamp),
+              timestamp: tx.timestamp,
+              hash: `${tx.hash}`,
+              from,
+              to,
+              amount: amountDelta.dividedBy(ALPH_UNIT).toString(),
+            }
+          });
+
+          resolve(history);
+        })
+        .catch(err => {
+          console.error(err);
+          reject(err);
+        });
+    });
   };
 
   calAmountDelta = (t: Transaction, id: string): BigNumber => {
@@ -62,134 +117,33 @@ export class ALPH_Driver extends GenericTransactionDriver {
         });
 
       return filtered;
-      // return _(io.filter(o => o.address !== currentAddress))
-      //   .map((v: any) => v.address)
-      //   .uniq()
-      //   .value()
-      //   .map((v: any) => v);
-      // console.log(currentAddress);
-      // return io;
     } else {
       return 'Mining Rewards';
     }
   };
 
-  getTransactionStatus = async (
-    address: string,
-    txId: string
-  ): Promise<'pending' | 'success' | 'failed' | null> => {
-    const client = await this.createClient();
-    const addressTransactionsResp = await client.explorer.getAddressTransactions(
-      address,
-      1
-    );
-
-    for (const row of addressTransactionsResp.data as any) {
-      if (row.hash === txId) {
-        switch (row.type) {
-          case 'confirmed':
-            return 'success';
-          case 'refused':
-            return 'failed';
-          default:
-            return 'pending';
-        }
-      }
-    }
-
-    return null;
-  };
-
-  getTransactions = async (address: string): Promise<any[]> => {
-    const client = await this.createClient();
-
-    return new Promise((resolve, reject) => {
-      client.explorer
-        .getAddressTransactions(address, 1)
-        .then(txs => {
-          const history = txs.data.map(tx => {
-            const amountDelta = this.calAmountDelta(tx, address);
-            const isOut = amountDelta < new BigNumber('0');
-            const IOAddressesList = isOut ? tx.outputs : tx.inputs;
-            const to = isOut
-              ? this.renderIOAccountList(address, IOAddressesList)
-              : address;
-            const from = isOut
-              ? address
-              : this.renderIOAccountList(address, IOAddressesList);
-
-            return {
-              out: isOut,
-              date: new Date(tx.timestamp),
-              timestamp: tx.timestamp,
-              hash: `${tx.hash}`,
-              from,
-              to,
-              amount: amountDelta.dividedBy(ALPH_UNIT).toString(),
-            };
-          });
-          resolve(history);
-        })
-        .catch(err => {
-          console.error(err);
-          reject(err);
-        });
-    });
-  };
-
   send = async (transaction: GenericTxProposal): Promise<string> => {
+    const client = await this.createClient();
+
+    if (!this.assetConfig.privKey || !this.assetConfig.pubKey) {
+      throw new Error('No key pair defined to sign the transaction');
+    }
     const data: any = transaction.getData();
     const amount = BigInt(Number(data.proposal.valueToSend) * ALPH_UNIT);
-    const cliqueClient = await this.createClient();
+    const txData = {
+      fromPublicKey: this.assetConfig.pubKey,
+      destinations: [
+        {
+          address: transaction.settings?.proposal?.to,
+          attoAlphAmount: amount.toString(),
+          tokens: [],
+        }
+      ],
+    };
 
-    if (!this.assetConfig.privKey) {
-      throw new Error('No private key defined to sign the transaction');
-    }
-
-    if (!this.assetConfig.walletAddress) {
-      throw new Error('Origin address was not defined');
-    }
-
-    try {
-      const txCreateResp = await cliqueClient.clique.transactionCreate(
-        this.assetConfig.walletAddress || '',
-        this.assetConfig.pubKey || '',
-        data.proposal.to,
-        amount.toString(),
-        undefined
-      );
-
-      const { txId, unsignedTx } = txCreateResp.data;
-
-      const signature = await cliqueClient.clique.transactionSign(
-        txId,
-        this.assetConfig.privKey
-      );
-
-      const txSendResp = await cliqueClient.clique.transactionSend(
-        this.assetConfig.walletAddress,
-        unsignedTx,
-        signature
-      );
-
-      return txSendResp.data.txId;
-    } catch (err) {
-      const error = err as FetchResponse;
-      if (error.error && error.error.detail) {
-        throw new Error(error.error.detail);
-      }
-      throw new Error('Unkown error while creating transaction');
-    }
+    const postedTx = await client.node.transactions.postTransactionsBuild(txData)
+    const signature = transactionSign(postedTx.txId, this.assetConfig.privKey)
+    const signedTx = await client.node.transactions.postTransactionsSubmit({ unsignedTx: postedTx.unsignedTx, signature })
+    return signedTx.txId;
   };
-
-  getEndpoint() {
-    const endpoint = this.config.endpoint;
-
-    if (endpoint) {
-      return endpoint;
-    }
-    throw new Error(
-      this.currency + ' Transaction endpoint is required in config'
-    );
-  }
 }

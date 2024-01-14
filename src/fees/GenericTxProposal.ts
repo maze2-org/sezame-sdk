@@ -3,7 +3,7 @@ import { Currency } from '../currencies';
 
 export class GenericTxProposal implements IFee {
   currency = Currency.BTC;
-  settings = {};
+  settings: any = {};
   getFeeValue() {
     return 0;
   }

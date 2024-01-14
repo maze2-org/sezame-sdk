@@ -46,6 +46,40 @@ export class GenericWallet implements IWallet {
     }
     return this.address;
   };
+
+  getAddressGroup = async (_cryptoAddress: string) => {
+    // Loop through the drivers to get the balance
+    let drivers =
+      CONFIG.CHAIN_ENDPOINTS[this.getBlockchainSymbol()]
+        ?.transactions_history ?? [];
+
+    for (let i = 0; i < drivers.length; i++) {
+      // Try all drivers in case one of them fails
+      const driverDescription: any = drivers[i];
+      try {
+        var driver = new this.TRANSACTION_DRIVER_NAMESPACE[
+          driverDescription.driver
+        ](this.config, driverDescription.config);
+
+        if (driver.definePrivateKey) {
+          driver.definePrivateKey(this.getPrivateKey());
+        }
+
+        if (!driver.getTransactionStatus) {
+          throw new Error("Address group not implemented for this block-chain")
+        }
+        return driver.getAddressGroup(_cryptoAddress);
+      } catch (e) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.log(e);
+        }
+        continue;
+      }
+    }
+
+    return null;
+  }
+
   getPrivateKey = () => {
     if (!this.config.privKey) {
       throw new Error('Wallet private key not set!');

@@ -49,8 +49,10 @@
         {
           "driver": "ALPH_Driver",
           "config": {
+            "network_id": 0,
             "explorer": "https://explorer-backend.sesamewallet.io",
-            "node": "https://node.sesamewallet.io"
+            "node": "https://node.sesamewallet.io",
+            "explorer_url": "https://explorer.sesamewallet.io/#/addresses/{address}"
           }
         }
       ],
@@ -58,8 +60,10 @@
         {
           "driver": "ALPH_Driver",
           "config": {
+            "network_id": 0,
             "explorer": "https://explorer-backend.sesamewallet.io",
-            "node": "https://node.sesamewallet.io"
+            "node": "https://node.sesamewallet.io",
+            "explorer_url": "https://explorer.sesamewallet.io/#/addresses/{address}"
           }
         }
       ],
@@ -67,8 +71,10 @@
         {
           "driver": "ALPH_Driver",
           "config": {
+            "network_id": 0,
             "explorer": "https://explorer-backend.sesamewallet.io",
-            "node": "https://node.sesamewallet.io"
+            "node": "https://node.sesamewallet.io",
+            "explorer_url": "https://explorer.sesamewallet.io/#/addresses/{address}"
           }
         }
       ],
@@ -76,6 +82,7 @@
         {
           "driver": "ALPH_Driver",
           "config": {
+            "network_id": 0,
             "explorer": "https://explorer-backend.sesamewallet.io",
             "node": "https://node.sesamewallet.io",
             "explorer_url": "https://explorer.sesamewallet.io/#/addresses/{address}"

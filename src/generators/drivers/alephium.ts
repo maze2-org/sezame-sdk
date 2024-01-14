@@ -1,12 +1,89 @@
 import { GenericGenerator } from '../GenericGenerator';
 
-import { Keyring } from '@polkadot/keyring';
-import { u8aToHex } from '@polkadot/util';
 import { WalletDescription } from '../../utils/types/WalletDescription';
-import { cryptoWaitReady, mnemonicToMiniSecret } from '@polkadot/util-crypto';
-import { walletImport } from '@alephium/sdk';
+import * as bip32 from 'bip32'
+import * as bip39 from 'bip39'
+import { bs58 } from '@alephium/web3';
+import blake from 'blakejs'
 
-// import { CONFIG } from '../../utils/config';
+export type AddressKeyPair = {
+  hash: string
+  index: number
+  publicKey: string
+  privateKey: string
+}
+
+export const getPath = (addressIndex?: number) => {
+  if (
+    addressIndex !== undefined &&
+    (addressIndex < 0 || !Number.isInteger(addressIndex) || addressIndex.toString().includes('e'))
+  ) {
+    throw new Error('Invalid address index path level')
+  }
+  // Being explicit: we always use coinType 1234 no matter the network.
+  const coinType = "1234'"
+
+  return `m/44'/${coinType}/0'/0/${addressIndex || '0'}`
+}
+
+type WalletProps = {
+  address: string
+  publicKey: string
+  privateKey: string
+  seed: Buffer
+  mnemonic: string
+  masterKey: bip32.BIP32Interface
+}
+
+
+export class Wallet {
+  readonly address: string
+  readonly publicKey: string
+  readonly privateKey: string
+  readonly seed: Buffer
+  readonly mnemonic: string
+  readonly masterKey: bip32.BIP32Interface
+
+  constructor({ address, publicKey, privateKey, seed, mnemonic, masterKey }: WalletProps) {
+    this.address = address
+    this.publicKey = publicKey
+    this.privateKey = privateKey
+    this.seed = seed
+    this.mnemonic = mnemonic
+    this.masterKey = masterKey
+  }
+}
+
+
+export const deriveAddressAndKeys = (masterKey: bip32.BIP32Interface, addressIndex?: number): AddressKeyPair => {
+  const keyPair = masterKey.derivePath(getPath(addressIndex))
+
+  if (!keyPair.privateKey) throw new Error('Missing private key')
+
+  const publicKey = keyPair.publicKey.toString('hex')
+  const privateKey = keyPair.privateKey.toString('hex')
+  const hash = blake.blake2b(Uint8Array.from(keyPair.publicKey), undefined, 32)
+  const pkhash = Buffer.from(hash)
+  const type = Buffer.from([0])
+  const bytes = Buffer.concat([type, pkhash])
+  const address = bs58.encode(bytes)
+
+  return { hash: address, publicKey, privateKey, index: addressIndex || 0 }
+}
+
+export const getWalletFromSeed = (seed: Buffer, mnemonic: string): Wallet => {
+  const masterKey = bip32.fromSeed(seed)
+  const { hash, publicKey, privateKey } = deriveAddressAndKeys(masterKey)
+
+  return new Wallet({ seed, address: hash, publicKey, privateKey, mnemonic, masterKey })
+}
+
+export const getWalletFromMnemonic = (mnemonic: string, passphrase = ''): Wallet => {
+  const seed = bip39.mnemonicToSeedSync(mnemonic, passphrase)
+
+  return getWalletFromSeed(seed, mnemonic)
+}
+
 
 /**
  *
@@ -16,26 +93,26 @@ import { walletImport } from '@alephium/sdk';
  * @extends {GenericGenerator}
  */
 export class AlephiumGenerator extends GenericGenerator {
-  static async generateWalletXpub(mnemonic: any, accountCrypto: any) {
-    let crypto = accountCrypto || 'sr25519';
+  // static async generateWalletXpub(mnemonic: any, accountCrypto: any) {
+  //   let crypto = accountCrypto || 'sr25519';
 
-    if (!['ed25519', 'sr25519'].includes(crypto)) {
-      throw `Invalid account crypto "${crypto}" specified.`;
-    }
+  //   if (!['ed25519', 'sr25519'].includes(crypto)) {
+  //     throw `Invalid account crypto "${crypto}" specified.`;
+  //   }
 
-    await cryptoWaitReady();
+  //   await cryptoWaitReady();
 
-    const keyring = new Keyring({ type: crypto, ss58Format: 42 });
+  //   const keyring = new Keyring({ type: crypto, ss58Format: 42 });
 
-    const keyPair = keyring.createFromUri(mnemonic);
-    return u8aToHex(keyPair.publicKey);
-  }
+  //   const keyPair = keyring.createFromUri(mnemonic);
+  //   return u8aToHex(keyPair.publicKey);
+  // }
 
-  static async generatePrivateKeyFromMnemonic(mnemonic: any) {
-    await cryptoWaitReady();
+  // static async generatePrivateKeyFromMnemonic(mnemonic: any) {
+  //   await cryptoWaitReady();
 
-    return u8aToHex(mnemonicToMiniSecret(mnemonic));
-  }
+  //   return u8aToHex(mnemonicToMiniSecret(mnemonic));
+  // }
 
   /**
    * Generate the public key / private key and wallet address
@@ -47,10 +124,8 @@ export class AlephiumGenerator extends GenericGenerator {
    */
   static async generateWalletFromMnemonic(
     mnemonic: string
-    // derivation: number,
-    // config: any = CONFIG
   ): Promise<WalletDescription> {
-    const wallet = await walletImport(mnemonic);
+    const wallet = await getWalletFromMnemonic(mnemonic);
     return {
       privateKey: wallet.privateKey,
       publicKey: wallet.publicKey,
