@@ -13,6 +13,15 @@ export type AddressKeyPair = {
   privateKey: string
 }
 
+export type WalletProps = {
+  address: string
+  publicKey: string
+  privateKey: string
+  seed: Buffer
+  mnemonic: string
+  masterKey: bip32.BIP32Interface
+}
+
 export const getPath = (addressIndex?: number) => {
   if (
     addressIndex !== undefined &&
@@ -25,16 +34,6 @@ export const getPath = (addressIndex?: number) => {
 
   return `m/44'/${coinType}/0'/0/${addressIndex || '0'}`
 }
-
-type WalletProps = {
-  address: string
-  publicKey: string
-  privateKey: string
-  seed: Buffer
-  mnemonic: string
-  masterKey: bip32.BIP32Interface
-}
-
 
 export class Wallet {
   readonly address: string
@@ -53,7 +52,6 @@ export class Wallet {
     this.masterKey = masterKey
   }
 }
-
 
 export const deriveAddressAndKeys = (masterKey: bip32.BIP32Interface, addressIndex?: number): AddressKeyPair => {
   const keyPair = masterKey.derivePath(getPath(addressIndex))
@@ -84,7 +82,6 @@ export const getWalletFromMnemonic = (mnemonic: string, passphrase = ''): Wallet
   return getWalletFromSeed(seed, mnemonic)
 }
 
-
 /**
  *
  *
@@ -93,26 +90,6 @@ export const getWalletFromMnemonic = (mnemonic: string, passphrase = ''): Wallet
  * @extends {GenericGenerator}
  */
 export class AlephiumGenerator extends GenericGenerator {
-  // static async generateWalletXpub(mnemonic: any, accountCrypto: any) {
-  //   let crypto = accountCrypto || 'sr25519';
-
-  //   if (!['ed25519', 'sr25519'].includes(crypto)) {
-  //     throw `Invalid account crypto "${crypto}" specified.`;
-  //   }
-
-  //   await cryptoWaitReady();
-
-  //   const keyring = new Keyring({ type: crypto, ss58Format: 42 });
-
-  //   const keyPair = keyring.createFromUri(mnemonic);
-  //   return u8aToHex(keyPair.publicKey);
-  // }
-
-  // static async generatePrivateKeyFromMnemonic(mnemonic: any) {
-  //   await cryptoWaitReady();
-
-  //   return u8aToHex(mnemonicToMiniSecret(mnemonic));
-  // }
 
   /**
    * Generate the public key / private key and wallet address

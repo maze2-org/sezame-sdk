@@ -18,7 +18,6 @@ along with the library. If not, see <http://www.gnu.org/licenses/>.
 
 import { ExplorerProvider, NodeProvider } from '@alephium/web3'
 import fetchRetry, { RequestInitWithRetry } from 'fetch-retry'
-import { clone } from 'lodash'
 
 export interface NetworkSettings {
     networkId: number
@@ -37,26 +36,8 @@ export type NetworkPreset = Exclude<NetworkName, 'custom'>
 
 export type NetworkStatus = 'offline' | 'connecting' | 'online' | 'uninitialized'
 
-export const networkPresetSettings: Record<NetworkPreset, NetworkSettings> = {
-    [NetworkName.mainnet]: {
-        networkId: 0,
-        nodeHost: 'https://wallet-v20.mainnet.alephium.org',
-        explorerApiHost: 'https://backend-v115.mainnet.alephium.org',
-        explorerUrl: 'https://explorer.alephium.org'
-    },
-    [NetworkName.testnet]: {
-        networkId: 1,
-        nodeHost: 'https://wallet-v20.testnet.alephium.org',
-        explorerApiHost: 'https://backend-v115.testnet.alephium.org',
-        explorerUrl: 'https://testnet.alephium.org'
-    }
-}
-
-
 export const defaultNetwork = NetworkName.mainnet
-
-
-export const defaultNetworkSettings: NetworkSettings = clone(networkPresetSettings[defaultNetwork])
+// export const defaultNetworkSettings: NetworkSettings = clone(networkPresetSettings[defaultNetwork])
 export const exponentialBackoffFetchRetry = fetchRetry(fetch, {
     retryOn: [429],
     retries: 10,
@@ -78,6 +59,3 @@ export class Client {
     }
 }
 
-const client = new Client(defaultNetworkSettings)
-
-export default client
