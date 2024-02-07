@@ -76,7 +76,7 @@
     "url": "git+https://github.com/maze2-org/sezame-sdk.git"
   },
   "dependencies": {
-    "@alephium/web3": "^0.28.1",
+    "@alephium/web3": "0.28.1",
     "@metamask/eth-sig-util": "^4.0.0",
     "@polkadot/keyring": "5.9.2",
     "@polkadot/util": "5.9.2",
@@ -87,7 +87,7 @@
     "bignumber": "^1.1.0",
     "bignumber.js": "9.0.1",
     "bip32": "2.0.6",
-    "bip39": "^3.0.4",
+    "bip39": "3.0.4",
     "bitcoin-address-validation": "2.2.1",
     "bitcoinjs-lib": "5.2.0",
     "bitcore-lib": "8.25.10",
