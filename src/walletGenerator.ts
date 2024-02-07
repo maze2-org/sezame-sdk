@@ -94,10 +94,11 @@ export class WalletGenerator {
     chain: Chains,
     mnemonic: any,
     derivation: any,
-    config: any = CONFIG
+    group: number,
+    usedIndexes: number[]
   ) {
     let driver = WalletGenerator.getDriver(chain);
-    return driver.generatePrivateKeyFromMnemonic(mnemonic, derivation, config);
+    return driver.generatePrivateKeyFromMnemonic(mnemonic, derivation, CONFIG, group, usedIndexes);
   }
 
   /**
@@ -133,9 +134,10 @@ export class WalletGenerator {
     mnemonic: string,
     chain: Chains,
     derivation: any,
-    config: any = CONFIG
+    usedIndexes?: number[],
+    group?: number
   ): Promise<WalletDescription> {
     const driver = WalletGenerator.getDriver(chain);
-    return driver.generateWalletFromMnemonic(mnemonic, derivation, config);
+    return driver.generateWalletFromMnemonic(mnemonic, derivation, CONFIG, usedIndexes, group);
   }
 }

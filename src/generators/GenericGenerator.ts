@@ -14,7 +14,7 @@ export class GenericGenerator {
    * @memberof GenericGenerator
    * @returns {string} The XPUB value
    */
-  static generateWalletXpub(_mnemonic: any, _config: any) {}
+  static generateWalletXpub(_mnemonic: any, _config: any) { }
   /**
    * Generate the wallet's Private Key
    *
@@ -28,8 +28,10 @@ export class GenericGenerator {
   static generatePrivateKeyFromMnemonic(
     _mnemonic: any,
     _derivation: any,
-    _config: any
-  ) {}
+    _config: any,
+    _group: number,
+    _usedIndexes: number[]
+  ) { }
   /**
    * Generate teh wallet's Public Address
    *
@@ -40,7 +42,7 @@ export class GenericGenerator {
    * @memberof GenericGenerator
    * @returns {string} The Public Key
    */
-  static generateAddressFromXPub(_xpub: any, _derivation: any, _config: any) {}
+  static generateAddressFromXPub(_xpub: any, _derivation: any, _config: any) { }
 
   /**
    * Generate teh wallet's Public Address
@@ -55,6 +57,8 @@ export class GenericGenerator {
   static generateWalletFromMnemonic(
     _mnemonic: string,
     _derivation: any,
-    _config: any
-  ) {}
+    _config: any,
+    _usedIndexes?: number[],
+    _group?: number
+  ) { }
 }
