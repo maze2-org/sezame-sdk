@@ -7,7 +7,7 @@
         {
           "driver": "AVN_Driver",
           "config": {
-            "avn_gateway_endpoint": "https://testnet.gateway.aventus.io",
+            "avn_gateway_endpoint": "https://gateway.testnet.aventus.network",
             "token_address": "0x46a1a476d02f4a79b7a38fa0863a954ae252251d"
           }
         }
@@ -16,7 +16,7 @@
         {
           "driver": "AVN_Driver",
           "config": {
-            "avn_gateway_endpoint": "https://testnet.gateway.aventus.io",
+            "avn_gateway_endpoint": "https://gateway.testnet.aventus.network",
             "token_address": "0x46a1a476d02f4a79b7a38fa0863a954ae252251d",
             "avn_relayer": "5EcAFwVcBo8s2D3ZSTnx2sq49wVDF3rc1yGJMx5nRp2GsK62"
           }
@@ -26,7 +26,7 @@
         {
           "driver": "AVN_Driver",
           "config": {
-            "avn_gateway_endpoint": "https://testnet.gateway.aventus.io",
+            "avn_gateway_endpoint": "https://gateway.testnet.aventus.network",
             "avn_relayer": "5EcAFwVcBo8s2D3ZSTnx2sq49wVDF3rc1yGJMx5nRp2GsK62",
             "avn_authority": "0x7075f2ec5abe24801ce8ccb2e7ffb13284df44c7baa9a583f8fd2f0498edb547",
             "token_address": "0x46a1a476d02f4a79b7a38fa0863a954ae252251d"
@@ -37,9 +37,9 @@
         {
           "driver": "AVN_Driver",
           "config": {
-            "avn_gateway_endpoint": "https://testnet.gateway.aventus.io",
-            "api_transction_url": "https://testnet.index.aventus.io:3000/transactions",
-            "explorer_url": "https://testnet.explorer.aventus.io/#/address/{address}"
+            "avn_gateway_endpoint": "https://gateway.testnet.aventus.network",
+            "api_transction_url": "index.testnet.aventus.network:3000/transactions",
+            "explorer_url": "https://explorer.testnet.aventus.network/#/address/{address}"
           }
         }
       ]
