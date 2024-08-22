@@ -6,9 +6,6 @@ import * as Transactions from './transactions';
 import * as CurrencyFunctionsfrom from './currencyFunctions';
 import BigNumber from 'bignumber.js';
 
-if (typeof process !== 'undefined' && process.cwd) {
-  require('dotenv').config();
-}
 
 // Set the big number maximum size
 BigNumber.set({ EXPONENTIAL_AT: 100 });
