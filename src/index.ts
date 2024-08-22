@@ -7,7 +7,7 @@ import * as CurrencyFunctionsfrom from './currencyFunctions';
 import BigNumber from 'bignumber.js';
 
 if (typeof process !== 'undefined' && process.cwd) {
-    require('dotenv').config();
+  require('dotenv').config();
 }
 
 // Set the big number maximum size
@@ -18,6 +18,7 @@ export { Chains } from './chains';
 export { WalletFactory } from './walletFactory';
 export { IWalletConfig } from './wallets/IWalletConfig';
 export { WalletGenerator } from './walletGenerator';
+export { NodeProviderGenerator } from './nodeProviderGenerator';
 export { IConfig, CONFIG } from './utils/config';
 export { Generators };
 export { Balances };

@@ -3,7 +3,7 @@ import { GenericGenerator } from '../GenericGenerator';
 import { WalletDescription } from '../../utils/types/WalletDescription';
 import * as bip32 from 'bip32';
 import * as bip39 from 'bip39';
-import { addressToGroup, bs58 } from '@alephium/web3';
+import { NodeProvider, bs58, groupOfAddress } from '@alephium/web3';
 import blake from 'blakejs';
 import { Client } from '../../utils/alephium/api/client';
 import { CONFIG } from '../../utils/config';
@@ -145,7 +145,7 @@ export const deriveNewAddressData = (
 
   while (
     forGroup !== undefined &&
-    addressToGroup(newAddressData.hash, TOTAL_NUMBER_OF_GROUPS) !== forGroup
+    groupOfAddress(newAddressData.hash) !== forGroup
   ) {
     nextAddressIndex = findNextAvailableAddressIndex(
       newAddressData.index,
@@ -165,6 +165,12 @@ export const deriveNewAddressData = (
  * @extends {GenericGenerator}
  */
 export class AlephiumGenerator extends GenericGenerator {
+  static getNodeProvider(): NodeProvider {
+    const nodeUrl = CONFIG.CHAIN_ENDPOINTS.ALPH.bridge?.config.node;
+    const nodeProvider = new NodeProvider(`${nodeUrl}`);
+
+    return nodeProvider;
+  }
   /**
    * Generate the public key / private key and wallet address
    *
@@ -188,6 +194,8 @@ export class AlephiumGenerator extends GenericGenerator {
       nodeHost: endpoints.node,
     });
 
+    const nodeProvider = new NodeProvider(endpoints.node);
+
     if (usedIndexes !== undefined) {
       const derived = await this.generateDerivedAddress(
         mnemonic,
@@ -205,6 +213,7 @@ export class AlephiumGenerator extends GenericGenerator {
         address: derived.hash,
         index: derived.index,
         group: derivedAddressGroup,
+        nodeProvider,
       };
     }
     const wallet = await getWalletFromMnemonic(mnemonic);
@@ -217,6 +226,7 @@ export class AlephiumGenerator extends GenericGenerator {
       address: wallet.address,
       index: 0,
       group: mainAddressGroup,
+      nodeProvider,
     };
   }
 
