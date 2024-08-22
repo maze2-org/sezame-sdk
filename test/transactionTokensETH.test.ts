@@ -27,10 +27,8 @@ describe('Ethereum Token Transactions', () => {
     let _config = Object.assign({}, config, { walletAddress: address });
     _config.decimals = null;
     let w = WalletFactory.getWallet(_config);
-    console.log(w.currency);
     let decimals = await w.getDecimals();
     expect(decimals).toBeGreaterThan(0);
-    console.log('decimals', decimals);
   });
 
   // it('can_get_balance_for_token_without_decimals', async () => {

@@ -9,15 +9,31 @@ export class ALPH_Driver extends GenericDriver {
     return new AlephiumFee(proposal);
   };
 
-  getTxSendProposals = async (destination: string, valueToSend: number) => {
+  getTxSendProposals = async (
+    destination: string,
+    valueToSend: number,
+    reason?: string
+  ) => {
     let fees: IFeeMap = {};
 
     if (!this.checkAddressValidity(destination)) {
       throw new Error('Destination address does not exist');
     }
 
+    let value = 0;
+
+    switch (reason) {
+      case 'bridge':
+        value = 5140100000000000;
+        break;
+
+      default:
+        value = 2000000000000000;
+        break;
+    }
+
     fees[FEE_TYPES.REGULAR] = this.buildFee({
-      value: 2000000000000000,
+      value,
       proposal: {
         to: destination,
         valueToSend,

@@ -45,6 +45,28 @@
       ]
     },
     "ALPH": {
+      "bridge": {
+        "driver": "ALPH_Driver",
+        "config": {
+          "chainId": 255,
+          "groupIndex": 0,
+          "initRewards": 10,
+          "minimalConsistencyLevel": 105,
+          "messageFee": "0",
+          "node": "https://node-v20.mainnet.alephium.org",
+          "explorer": "https://backend-v113.mainnet.alephium.org",
+          "contracts": {
+            "governance": "125397fbf4311a8b1da4c2eb01ca091b06f07d8a86b52b1836e0688c83b5b200",
+            "nativeGovernance": "uvVP76UfwQ1fmPTZWojUGYY2tKyuKe7Br76KDecfMbjM",
+            "tokenBridge": "7f42f8e21128e70c7a30098a32c5c388de7eb4ffc6ef7dd86f72e8e11acc4800",
+            "nativeTokenBridge": "23Fj7xr1pxWfYLixz3aBC3u5dUJVpAjXArbpiYWxeGjQT",
+            "bridgeRewardRouter": "232b5b4ffdc25185a26630f7916855b8ade56ce7a589e5d9c66de07f72c59500"
+          },
+          "bridgeTokens": [
+            "0000000000000000000000000000000000000000000000000000000000000000"
+          ]
+        }
+      },
       "balance": [
         {
           "driver": "ALPH_Driver",

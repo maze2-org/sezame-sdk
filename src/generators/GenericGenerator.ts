@@ -1,3 +1,5 @@
+import { NodeProvider } from '@alephium/web3';
+
 /**
  *
  *
@@ -14,7 +16,16 @@ export class GenericGenerator {
    * @memberof GenericGenerator
    * @returns {string} The XPUB value
    */
-  static generateWalletXpub(_mnemonic: any, _config: any) { }
+  static generateWalletXpub(_mnemonic: any, _config: any) {}
+
+  /**
+   * Return a node provider for the current block chain
+   *
+   * @returns {NodeProvider} The node provider to be used by the signer
+   */
+  static getNodeProvider(): NodeProvider | null {
+    return null;
+  }
   /**
    * Generate the wallet's Private Key
    *
@@ -31,7 +42,7 @@ export class GenericGenerator {
     _config: any,
     _group: number,
     _usedIndexes: number[]
-  ) { }
+  ) {}
   /**
    * Generate teh wallet's Public Address
    *
@@ -42,7 +53,7 @@ export class GenericGenerator {
    * @memberof GenericGenerator
    * @returns {string} The Public Key
    */
-  static generateAddressFromXPub(_xpub: any, _derivation: any, _config: any) { }
+  static generateAddressFromXPub(_xpub: any, _derivation: any, _config: any) {}
 
   /**
    * Generate teh wallet's Public Address
@@ -60,5 +71,5 @@ export class GenericGenerator {
     _config: any,
     _usedIndexes?: number[],
     _group?: number
-  ) { }
+  ) {}
 }
