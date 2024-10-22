@@ -2,7 +2,7 @@ import { GenericBalanceDriver } from '../GenericBalanceDriver';
 import BigNumber from 'bignumber.js';
 import { GenericBalance } from '..';
 import { AVT_UNIT } from '../../constants';
-const AvnApi = require('avn-api');
+const { AvnApi, SetupMode, SigningMode } = require("avn-api");
 export class AVN_Driver extends GenericBalanceDriver {
   config: any;
   definePrivateKey = (privateKey: string) => {
@@ -10,12 +10,17 @@ export class AVN_Driver extends GenericBalanceDriver {
   };
 
   getBalance = async (address: string) => {
-    const api = new AvnApi(this.getBalanceEndpoint()[0], {
-      suri: process.env.SURI,
-    });
+    const singleUserOptions = {
+      suri: process.env.SURI, 
+      setupMode: SetupMode.SingleUser,
+      signingMode: SigningMode.SuriBased,
+    };
+    const avnSdk = new AvnApi(this.getBalanceEndpoint()[0], singleUserOptions);
 
     try {
-      await api.init();
+      await avnSdk.init();
+      const api = await avnSdk.apis();
+      
       // const balance = await api.query.getAvtBalance(address);
       const balance = await api.query.getAccountInfo(address);
 
