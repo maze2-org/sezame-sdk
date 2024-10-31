@@ -7,12 +7,18 @@ import BigNumber from 'bignumber.js';
 import { AVT_UNIT } from '../../constants';
 import { StakingProperties } from '../../wallets/types/StakingProperties';
 
-const AvnApi = require('avn-api');
+const { AvnApi, SetupMode, SigningMode } = require('avn-api');
 
 export class AVN_Driver extends GenericTransactionDriver {
   initApi = async () => {
-    const api = new AvnApi(this.getEndpoint(), { suri: process.env.SURI });
-    await api.init();
+    const singleUserOptions = {
+      suri: process.env.SURI,
+      setupMode: SetupMode.SingleUser,
+      signingMode: SigningMode.SuriBased,
+    };
+    const avnSdk = new AvnApi(this.getEndpoint(), singleUserOptions);
+    await avnSdk.init();
+    const api = await avnSdk.apis();
     return api;
   };
 

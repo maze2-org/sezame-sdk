@@ -3,7 +3,7 @@ import { GenericDriver } from '../GenericDriver';
 import { AventusFee } from '../types/AventusFee';
 import BigNumber from 'bignumber.js';
 // import { AVT_UNIT } from '../../constants';
-const AvnApi = require('avn-api');
+const { AvnApi, SetupMode, SigningMode } = require('avn-api');
 
 export class AVN_Driver extends GenericDriver {
   nativeAssetSymbol: string = 'AVT';
@@ -20,12 +20,17 @@ export class AVN_Driver extends GenericDriver {
     let fees: IFeeMap = {};
 
     try {
-      const api = new AvnApi(this.config.avn_gateway_endpoint, {
+      const singleUserOptions = {
         suri: process.env.SURI,
-      });
-      await api.init();
+        setupMode: SetupMode.SingleUser,
+        signingMode: SigningMode.SuriBased,
+      };
+      const avnSdk = new AvnApi(this.config.avn_gateway_endpoint, singleUserOptions);
 
-      const feeAmount = await api.query.getRelayerFees(this.config.avn_relayer);
+      await avnSdk.init();
+      const api = await avnSdk.apis();
+      let native_currency = await api.query.getNativeCurrencyToken();
+      const feeAmount = await api.query.getRelayerFees(this.config.avn_relayer, native_currency);
 
       let amount = 0;
       switch (reason) {
