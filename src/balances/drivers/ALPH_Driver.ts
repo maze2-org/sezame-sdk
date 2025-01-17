@@ -4,6 +4,11 @@ import { GenericBalance } from '../GenericBalance';
 import BigNumber from 'bignumber.js';
 import { ALPH_UNIT } from '../../constants';
 
+type GetBalanceOptions = {
+  tokenId: string | null,
+  decimals: number
+}
+
 export class ALPH_Driver extends GenericBalanceDriver {
   config: any;
 
@@ -16,12 +21,17 @@ export class ALPH_Driver extends GenericBalanceDriver {
     })
   };
 
-  getBalance = async (address: string) => {
+  getBalance = async (address: string, options?: GetBalanceOptions) => {
+    const {tokenId, decimals} = options || {}
     const client = await this.createClient();
+    const isNativeToken = tokenId === null
+    const addressBalance = await client.node.addresses.getAddressesAddressBalance(address)
+    const nativeTokenBalance = addressBalance.balance;
+    const tokenBalance = addressBalance?.tokenBalances?.find(tokenBalance => tokenBalance.id === tokenId)?.amount || '0';
+    const resultBalance = isNativeToken ? nativeTokenBalance : Number(tokenBalance);
+    const resultDecimals = isNativeToken ? ALPH_UNIT : (decimals ? Math.pow(10, decimals) : ALPH_UNIT);
 
-    const balance = new BigNumber((await client.node.addresses.getAddressesAddressBalance(address)).balance)
-      .dividedBy(ALPH_UNIT)
-      .toNumber();
+    const balance = new BigNumber(resultBalance).dividedBy(resultDecimals).toNumber();
 
     return new GenericBalance(
       this.currency,

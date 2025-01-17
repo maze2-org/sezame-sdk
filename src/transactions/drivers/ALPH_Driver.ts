@@ -4,7 +4,8 @@ import { GenericTransactionDriver } from '../GenericTransactionDriver';
 import { Transaction } from '@alephium/web3/dist/src/api/api-explorer';
 import { ALPH_UNIT } from '../../constants';
 import { GenericTxProposal } from '../../fees/GenericTxProposal';
-import { transactionSign } from '@alephium/web3';
+import {transactionSign} from '@alephium/web3';
+import { Token } from "@alephium/web3/dist/src/api/api-alephium";
 
 type AlphConfig = any;
 
@@ -122,7 +123,7 @@ export class ALPH_Driver extends GenericTransactionDriver {
     }
   };
 
-  send = async (transaction: GenericTxProposal): Promise<string> => {
+  send = async (transaction: GenericTxProposal, tokens:Token[] = []): Promise<string> => {
     const client = await this.createClient();
 
     if (!this.assetConfig.privKey || !this.assetConfig.pubKey) {
@@ -136,7 +137,7 @@ export class ALPH_Driver extends GenericTransactionDriver {
         {
           address: transaction.settings?.proposal?.to,
           attoAlphAmount: amount.toString(),
-          tokens: [],
+          tokens: tokens,
         }
       ],
     };

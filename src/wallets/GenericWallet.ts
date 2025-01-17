@@ -4,6 +4,7 @@ import { IWalletConfig } from './IWalletConfig';
 import { CONFIG } from '../utils/config';
 import { GenericBalance } from '../balances/GenericBalance';
 import { Web3SigningManager } from './signing/web3';
+import { Token } from "@alephium/web3/dist/src/api/api-alephium";
 
 /**
  * Don't use the generic wallet, for a new coin write an implementation
@@ -228,7 +229,10 @@ export class GenericWallet implements IWallet {
         if (driver.definePrivateKey) {
           driver.definePrivateKey(this.getPrivateKey());
         }
-        let balance = await driver.getBalance(this.getAddress());
+        let balance = await driver.getBalance(this.getAddress(), {
+          tokenId: this.config.contract,
+          decimals: this.config.decimals
+        });
         if (balance) {
           return balance;
         }
@@ -302,7 +306,7 @@ export class GenericWallet implements IWallet {
     return null;
   };
 
-  postTxSend = async (transactionProposal: GenericTxProposal): Promise<any> => {
+  postTxSend = async (transactionProposal: GenericTxProposal, tokens: Token[] = []): Promise<any> => {
     // Loop through the drivers to get the fees
 
     let drivers =
@@ -318,7 +322,7 @@ export class GenericWallet implements IWallet {
           driverDescription.driver
         ](this.config, driverDescription.config);
 
-        let tx = await driver.send(transactionProposal);
+        let tx = await driver.send(transactionProposal, tokens);
         return tx;
       } catch (e) {
         error = e;
