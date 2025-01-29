@@ -71,7 +71,7 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "groupId": 1,
+            "network_id": 1,
             "explorer": "https://explorer-backend-alephium-testnet.sezame.app",
             "node": "https://node-alephium-testnet.sezame.app",
             "explorer_url": "https://explorer-alephium-testnet.sezame.app/#/addresses/{address}"
@@ -82,7 +82,7 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "groupId": 1,
+            "network_id": 1,
             "explorer": "https://explorer-backend-alephium-testnet.sezame.app",
             "node": "https://node-alephium-testnet.sezame.app",
             "explorer_url": "https://explorer-alephium-testnet.sezame.app/#/addresses/{address}"
@@ -93,7 +93,7 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "groupId": 1,
+            "network_id": 1,
             "explorer": "https://explorer-backend-alephium-testnet.sezame.app",
             "node": "https://node-alephium-testnet.sezame.app",
             "explorer_url": "https://explorer-alephium-testnet.sezame.app/#/addresses/{address}"
@@ -104,7 +104,7 @@
         {
           "driver": "ALPH_Driver",
           "config": {
-            "groupId": 1,
+            "network_id": 1,
             "explorer": "https://explorer-backend-alephium-testnet.sezame.app",
             "node": "https://node-alephium-testnet.sezame.app",
             "explorer_url": "https://explorer-alephium-testnet.sezame.app/#/addresses/{address}"

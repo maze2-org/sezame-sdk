@@ -9,7 +9,7 @@ export class WEB3_Driver extends GenericBalanceDriver {
   config: any;
   nativeCurrencySymbol: string = 'ETH';
   getBalance = async (address: string) => {
-    if (this.currency === this.nativeCurrencySymbol) {
+    if (this.currency.toUpperCase() === this.nativeCurrencySymbol.toUpperCase()) {
       return this.getNativeAssetBalance(address);
     } else {
       return this.getTokenBalance(address);
