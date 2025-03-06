@@ -53,7 +53,7 @@
           "initRewards": 10,
           "minimalConsistencyLevel": 105,
           "messageFee": "0",
-          "node": "https://node-v20.mainnet.alephium.org",
+          "node": "https://node-alephium.sezame.app",
           "explorer": "https://backend-v113.mainnet.alephium.org",
           "contracts": {
             "governance": "125397fbf4311a8b1da4c2eb01ca091b06f07d8a86b52b1836e0688c83b5b200",
@@ -73,7 +73,7 @@
           "config": {
             "network_id": 0,
             "explorer": "https://explorer-backend.sesamewallet.io",
-            "node": "https://node.sesamewallet.io",
+            "node": "https://node-alephium.sezame.app",
             "explorer_url": "https://explorer.sesamewallet.io/#/addresses/{address}"
           }
         }
@@ -84,7 +84,7 @@
           "config": {
             "network_id": 0,
             "explorer": "https://explorer-backend.sesamewallet.io",
-            "node": "https://node.sesamewallet.io",
+            "node": "https://node-alephium.sezame.app",
             "explorer_url": "https://explorer.sesamewallet.io/#/addresses/{address}"
           }
         }
@@ -95,7 +95,7 @@
           "config": {
             "network_id": 0,
             "explorer": "https://explorer-backend.sesamewallet.io",
-            "node": "https://node.sesamewallet.io",
+            "node": "https://node-alephium.sezame.app",
             "explorer_url": "https://explorer.sesamewallet.io/#/addresses/{address}"
           }
         }
@@ -106,7 +106,7 @@
           "config": {
             "network_id": 0,
             "explorer": "https://explorer-backend.sesamewallet.io",
-            "node": "https://node.sesamewallet.io",
+            "node": "https://node-alephium.sezame.app",
             "explorer_url": "https://explorer.sesamewallet.io/#/addresses/{address}"
           }
         }
