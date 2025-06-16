@@ -39,7 +39,7 @@
           "config": {
             "avn_gateway_endpoint": "https://gateway.mainnet.aventus.network",
             "api_transction_url": "index.mainnet.aventus.network:3000/transactions",
-            "explorer_url": "https://explorer.mainnet.aventus.network/#/address/{address}"
+            "explorer_url": "https://explorer.mainnet.aventus.io/#/address/{address}"
           }
         }
       ]
